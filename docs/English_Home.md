@@ -21,4 +21,4 @@ Support transaction pairs in all **bzu** website transactions
 <a href="https://github.com/bizuyun/API/docs/English_API_Reference.md">API Reference</a>
 
 
-<a href="https://github.com/bizuyun/API/docs/English_Error_Code.md">error code</a>
+<a href="https://github.com/bizuyun/API/blob/master/docs/English_Error_Code.md">error code</a>
