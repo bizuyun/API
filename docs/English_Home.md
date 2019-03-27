@@ -19,7 +19,7 @@ Website address is <a href="https://www.bzu.com">https://www.bzu.com</a>
 <a href="https://github.com/bizuyun/API/blob/master/docs/English_Request_Description.md">Request description</a>
 
 
-<a href="https://github.com/bizuyun/API/docs/English_API_Reference.md">API Reference</a>
+<a href="https://github.com/bizuyun/API/blob/master/docs/English_API_Reference.md">API Reference</a>
 
 
 <a href="https://github.com/bizuyun/API/blob/master/docs/English_Error_Code.md">error code</a>
