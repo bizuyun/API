@@ -12,30 +12,30 @@ Response parameter description:
  **```Symbol```** Rule: 
 Base currency + pricing currency.For example, ```BTC/USDT```, ```symbol``` is **```btcusdt```**; ```ETH/BTC```, ```symbol``` is **```ethbtc```**.Please know!
 
-Interface list
-Module	Request address	Http access type	description	Whether it is necessary to check
-Market	/market/kline	GET	Get k-line data for the specified transaction pair	N
-Market	/market/tickers	GET	Get information on all trading pairs	N
-Market	/market/ticker	GET	Get information about the specified deal pair	N
-Market	/market/trade	GET	Get historical transaction data for the specified transaction pair	N
-Market	/market/depth	GET	Get the specified transaction versus depth data	N
-Market	/market/tradeInfo	GET	Get all transactions against pricing units and decimal places	N
-Currency transaction	/order/batchCancel	POST	Batch withdrawal by order	Y
-Currency transaction	/order/batchCancelOpenOrders	POST	Batch withdrawal by condition	Y
-Currency transaction	/order/matchResults	GET	Query the current transaction and historical transaction of the user	N
-Currency transaction	/order/openOrders	GET	Query the user's current unfilled order	N
-Currency transaction	/order/cancelEntrust	POST	Cancel an order by order-id	Y
-Currency transaction	/order/saveEntrust	POST	Order	Y
-Currency transaction	/order/queryMyEntrust	GET	Inquire about my order	N
-Currency transaction	/order/queryMyHisEntrust	GET	Query my historical order	N
-Currency transaction	/order/queryMyEntrustOrder	GET	Order transaction details	N
-Currency transaction	/order/ /queryOrderById	GET	Query the order according to the id	N
-Punching coins	/dw/addWithdraw	POST	Add new application for currency	Y
-Punching coins	/dw/cancelWithdraw	POST	Withdrawal of coins	Y
-Punching coins	/dw/queryWithdrawRecording	GET	Query user charge record	N
-User assets	/personal/getUserFinanceList	GET	User asset query	N
-Currency information	/coin/enabled	GET	Get a list of currency information	N
-Market
+# Interface list
+| Module  |  Request address | Http access type |	description |	Whether it is necessary to check |
+| Market  |  /market/kline	| GET |  Get k-line data for the specified transaction pair |	N |
+| Market  |  /market/tickers	| GET |  Get information on all trading pairs   | N |
+| Market  |  /market/ticker	| GET |	 Get information about the specified deal pair |N |
+| Market  |  /market/trade      | GET |	 Get historical transaction data for the specified transaction pair | N |
+| Market  |  /market/depth      | GET |	 Get the specified transaction versus depth data | N |
+| Market  |  /market/tradeInfo  | GET |	 Get all transactions against pricing units and decimal places | N |
+| Currency transaction | /order/batchCancel |	POST	| Batch withdrawal by order |	Y |
+| Currency transaction | /order/batchCancelOpenOrders	| POST |	Batch withdrawal by condition |	Y |
+| Currency transaction | /order/matchResults | GET | Query the current transaction and historical transaction of the user | N |
+| Currency transaction | /order/openOrders   | GET | Query the user's current unfilled order | N |
+| Currency transaction | /order/cancelEntrust |	POST |	Cancel an order by order-id | Y |
+| Currency transaction | /order/saveEntrust   |	POST |	Order |	Y |
+| Currency transaction | /order/queryMyEntrust | GET |	Inquire about my order | N |
+| Currency transaction | /order/queryMyHisEntrust | GET | Query my historical order | N |
+| Currency transaction | /order/queryMyEntrustOrder | GET | Order transaction details |	N |
+| Currency transaction | /order/queryOrderById  | GET |	Query the order according to the id | N |
+| Punching coins | /dw/addWithdraw | POST | Add new application for currency | Y |
+| Punching coins | /dw/cancelWithdraw | POST |	Withdrawal of coins | Y |
+| Punching coins | /dw/queryWithdrawRecording | GET | Query user charge record | N | 
+| User assets    | /personal/getUserFinanceList | GET |	User asset query | N |
+| Currency information | /coin/enabled | GET | Get a list of currency information | N |
+## Market
 GET /market/kline Get the K-line data of the specified transaction pair
 Request parameters:
 parameter name	Is it necessary?	Types of	Defaults	description
