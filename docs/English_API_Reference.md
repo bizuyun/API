@@ -487,11 +487,11 @@ data:  {
 | price     | true | string | Order unit price |
 | count     | true | string | Number of orders |
 | amount    | true | string | Total price of the order |
-leftCount	true	string	The remaining amount
-completeCount	true	string	Amount completed
-completePrice	true	string	Average price
-completeAmount	true	string	Total turnover
-source	true	string	source
+| leftCount | true | string | The remaining amount |
+| completeCount | true | string | Amount completed |
+| completePrice | true | string | Average price |
+| completeAmount| true | string | Total turnover |
+| source | true | string | source |
 createTime	true	string	Creation time
 fees	true	string	Handling fee
 version	true	string	version
