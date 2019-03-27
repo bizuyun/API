@@ -1,5 +1,3 @@
-# API
-
 ![](./images/logo.png)
 
 ## 币族云API ##
