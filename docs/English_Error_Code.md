@@ -17,7 +17,9 @@ Code
 | common_failure_0001     |	network anomaly |
 | inconsistent_parameters_and_signatures |	Inconsistent parameters and signatures |
 | access_key_not_found_or_ip_Incorrect |	accessKey does not exist or the ip address is incorrect |
-#####【public area】######
+
+####【public area】####
+
 | error code        |	description |
 |-------------------|---------------|
 | common_success    |	success! |
@@ -29,7 +31,9 @@ Code
 | json_unresolved |	Json can't parse |
 | signature_verification_failed |	Signature verification failed, signature cannot be resolved |
 | user_pay_is_error | 	Transaction password is wrong |
+
 #### [quote] ####
+
 | error code        |      description           |
 |-------------------|----------------------------|
 | api_market_001    |	Invalid user information |
