@@ -14,6 +14,7 @@ Base currency + pricing currency.For example, ```BTC/USDT```, ```symbol``` is **
 
 # Interface list
 | Module  |  Request address | Http access type |	description |	Whether it is necessary to check |
+|---------|------------------|------------------|-------------------|------------------------------------|
 | Market  |  /market/kline	| GET |  Get k-line data for the specified transaction pair |	N |
 | Market  |  /market/tickers	| GET |  Get information on all trading pairs   | N |
 | Market  |  /market/ticker	| GET |	 Get information about the specified deal pair |N |
@@ -36,59 +37,40 @@ Base currency + pricing currency.For example, ```BTC/USDT```, ```symbol``` is **
 | User assets    | /personal/getUserFinanceList | GET |	User asset query | N |
 | Currency information | /coin/enabled | GET | Get a list of currency information | N |
 ## Market
-GET /market/kline Get the K-line data of the specified transaction pair
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-symbol	true	string		Transaction pair identification (btcusdt, ethusdt...)
-klineType	true	string		Period identification (min, min5, min15, min30, hour1, hour4, day, week)
-klineStep	true	string		Length (step0=50, STEP1=100, STEP2=150, STEP3=200, STEP4=250, STEP5=300)
-Response parameters:
+#### GET /market/kline Get the K-line data of the specified transaction pair
+* Request parameters:
+
+| parameter name | Is it necessary |	Types |	 Defaults |	description |
+|----------------|-----------------|----------|----------|------------------|
+| symbol    | true | string  |	Transaction pair identification (btcusdt, ethusdt...) |
+| klineType | true | string  | 	Period identification (min, min5, min15, min30, hour1, hour4, day, week) |
+| klineStep | true | string  | 	Length (step0=50, STEP1=100, STEP2=150, STEP3=200, STEP4=250, STEP5=300) |
+
+* Response parameters:
+```
 data: [
     [
       Highest price, opening price, lowest price, closing price, volume, time stamp
     ]
-GET /market/tickers get information on all trade pairs
-No request parameter
-Response parameter
-parameter name	Is it necessary?	Types of	description
-tradeName	true	string	Transaction pair name
-buy	true	number	Buy one price
-sell	true	number	Sell ​​one price
-high	true	number	Highest price
-low	true	number	Lowest price
-last	true	number	Latest price
-open	true	number	Opening price
-chg	true	number	Ups and downs
-vol24hour	true	number	24-hour volume
-Response json:
-data: [
-    {
-      "tradeName": "transaction pair name",
-      "buy": buy a price,
-      "sell": Sell a price,
-      "high": the highest price,
-      "low": the lowest price,
-      "last": the latest price,
-      "open": opening price,
-      "chg": ups and downs,
-      "vol24hour": 24-hour volume
-    }]
-GET /market/ticker Get information about the specified deal pair
-Request data:
-| Parameter Name | Required | Type | Default | Description | | symbol | true | string | | Deal Pair Name (BTCUSDT, ETHUSDT) |
+```
+#### GET /market/tickers get information on all trade pairs
+* No request parameter
+* Response parameter
 
-Response data:
-parameter name	Is it necessary?	Types of	description
-tradeName	true	string	Transaction pair name
-buy	true	number	Buy one price
-sell	true	number	Sell ​​one price
-high	true	number	Highest price
-low	true	number	Lowest price
-last	true	number	Latest price
-open	true	number	Opening price
-chg	true	number	Ups and downs
-vol24hour	true	number	24-hour volume
-Response json:
+| parameter name | Is it necessary | Types |	description |
+|----------------|-----------------|-------|----------------|
+| tradeName | true | string | Transaction pair name |
+| buy       | true | number | Buy one price |
+| sell      | true | number | Sell ​​one price |
+| high      | true | number | Highest price |
+| low       | true | number | Lowest price |
+| last      | true | number | Latest price |
+| open      | true | number | Opening price |
+| chg       | true | number | Ups and downs |
+| vol24hour | true | number | 24-hour volume |
+
+* Response json:
+```
 data: [
     {
       "tradeName": "transaction pair name",
@@ -101,17 +83,62 @@ data: [
       "chg": ups and downs,
       "vol24hour": 24-hour volume
     }]
-GET /market/trade Get historical transaction data for the specified deal pair
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-symbol	true	string		Transaction pair name (btcusdt, ethusdt)
-Response parameters:
-parameter name	Is it necessary?	Types of	description
-price	true	number	deal price
-amount	true	number	The number of transactions
-direction	true	string	Deal direction (buy, sell)
-time	true	number	Timestamp
+```
+
+#### GET /market/ticker Get information about the specified deal pair
+* Request data:
+
+| Parameter Name | Required | Type | Default | Description | 
+|----------------|----------|------|---------|-------------|
+| symbol | true | string | | Deal Pair Name (BTCUSDT, ETHUSDT) |
+
+* Response data:
+
+| parameter name | Is it necessary |  Types | description |
+|----------------|-----------------|-------|-------------|
+| tradeName     | true | string | Transaction pair name |
+| buy    | true | number | Buy one price |
+| sell | true |	number | Sell ​​one price |
+| high | true |	number | Highest price |
+| low  | true |	number | Lowest price |
+| last | true |	number | Latest price |
+| open | true |	number | Opening price |
+| chg  | true |	number | Ups and downs |
+| vol24hour | true | number | 24-hour volume |
+
+* Response json:
+```
+data: [
+    {
+      "tradeName": "transaction pair name",
+      "buy": buy a price,
+      "sell": Sell a price,
+      "high": the highest price,
+      "low": the lowest price,
+      "last": the latest price,
+      "open": opening price,
+      "chg": ups and downs,
+      "vol24hour": 24-hour volume
+    }]
+```
+#### GET /market/trade Get historical transaction data for the specified deal pair
+* Request parameters:
+
+| parameter name | Is it necessary  | Types | Defaults  | description |
+|----------------|------------------|-------|-----------|-------------|
+| symbol | true | string | 	Transaction pair name (btcusdt, ethusdt) |
+
+* Response parameters:
+
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| price	  | true | number | deal price |
+| amount  | true | number | The number of transactions |
+| direction | true | string | Deal direction (buy, sell) |
+| time | true |	number | Timestamp |
+
 Response json:
+```
 "data": [
     {
       "price": the transaction price,
@@ -119,20 +146,28 @@ Response json:
       "direction": the direction of the transaction,
       "time": timestamp
     }]
-GET /market/depth Get the specified transaction vs. depth data
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-symbol	true	string		Transaction pair identification (btcusdt, ethusdt...)
-step	true	string		Depth file number (step0=0-99, step1=0-19, step2=20-39, step3=40-59, step4=60-79, step5=80-99)
-Response parameters:
-parameter name	Is it necessary?	Types of	description
-buy	true	array[object]	Buy-depth data collection
-price	true	number	price
-amount	true	number	Quantity
-sell	true	array[object]	Sell ​​depth data collection
-price	true	number	price
-amount	true	number	Quantity
-Response json:
+```
+#### GET /market/depth Get the specified transaction vs. depth data
+* Request parameters:
+
+| parameter name | Is it necessary  | Types | Defaults  | description |
+|----------------|------------------|-------|-----------|-------------|
+| symbol | true  | string |	Transaction pair identification (btcusdt, ethusdt...) |
+| step | true |	string |	Depth file number (step0=0-99, step1=0-19, step2=20-39, step3=40-59, step4=60-79, step5=80-99) |
+
+* Response parameters:
+
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| buy |	true |	array[object] |	Buy-depth data collection |
+| price | true | number | price |
+| amount | true | number Quantity |
+| sell   | true | array[object] | Sell ​​depth data collection |
+| price  | true | number price |
+| amount | true | number Quantity |
+
+* Response json:
+```
 "data": {
     "buy": [
       {
@@ -146,16 +181,21 @@ Response json:
         "amount": quantity
       }
     ]
-GET /market/tradeInfo Get all transactions against pricing units and decimal places
-No request parameter
-Response parameters:
-parameter name	Is it necessary?	Types of	description
-symbol	true	string	Transaction pair name
-baseCurrency	true	string	Base currency
-quoteCurrency	true	string	Pricing currency
-pricePrecision	true	number	Price decimal place
-countPrescision	true	number	Number of decimal places
-Response json:
+```
+#### GET /market/tradeInfo Get all transactions against pricing units and decimal places
+* No request parameter
+* Response parameters:
+
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| symbol | true  | string | Transaction pair name |
+| baseCurrency | true | string | Base currency |
+| quoteCurrency | true | string | Pricing currency |
+| pricePrecision | true | number | Price decimal place |
+| countPrescision | true | number | Number of decimal places |
+
+* Response json:
+```
 "data": [
     {
       "symbol": "transaction pair name (btcusdt)",
@@ -165,7 +205,9 @@ Response json:
       "countPrescision": number of decimal places
     }
   ]
-Currency transaction
+```
+
+# Currency transaction
 POST /order/batchCancel Batch withdrawal by order ID
 Request parameters:
 parameter name	Is it necessary?	Types of	Defaults	description
