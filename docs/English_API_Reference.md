@@ -42,9 +42,9 @@ Base currency + pricing currency.For example, ```BTC/USDT```, ```symbol``` is **
 
 | parameter name | Is it necessary |	Types |	 Defaults |	description |
 |----------------|-----------------|----------|----------|------------------|
-| symbol    | true | string  |	Transaction pair identification (btcusdt, ethusdt...) |
-| klineType | true | string  | 	Period identification (min, min5, min15, min30, hour1, hour4, day, week) |
-| klineStep | true | string  | 	Length (step0=50, STEP1=100, STEP2=150, STEP3=200, STEP4=250, STEP5=300) |
+| symbol    | true | string  |	| Transaction pair identification (btcusdt, ethusdt...) |
+| klineType | true | string  | 	| Period identification (min, min5, min15, min30, hour1, hour4, day, week) |
+| klineStep | true | string  | 	| Length (step0=50, STEP1=100, STEP2=150, STEP3=200, STEP4=250, STEP5=300) |
 
 * Response parameters:
 ```
@@ -126,7 +126,7 @@ data: [
 
 | parameter name | Is it necessary  | Types | Defaults  | description |
 |----------------|------------------|-------|-----------|-------------|
-| symbol | true | string | 	Transaction pair name (btcusdt, ethusdt) |
+| symbol | true | string | 	|Transaction pair name (btcusdt, ethusdt) |
 
 * Response parameters:
 
@@ -152,8 +152,8 @@ Response json:
 
 | parameter name | Is it necessary  | Types | Defaults  | description |
 |----------------|------------------|-------|-----------|-------------|
-| symbol | true  | string |	Transaction pair identification (btcusdt, ethusdt...) |
-| step | true |	string |	Depth file number (step0=0-99, step1=0-19, step2=20-39, step3=40-59, step4=60-79, step5=80-99) |
+| symbol | true  | string |	| Transaction pair identification (btcusdt, ethusdt...) |
+| step | true |	string |	| Depth file number (step0=0-99, step1=0-19, step2=20-39, step3=40-59, step4=60-79, step5=80-99) |
 
 * Response parameters:
 
@@ -208,51 +208,68 @@ Response json:
 ```
 
 # Currency transaction
-POST /order/batchCancel Batch withdrawal by order ID
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-ids	true	array[number]		No more than 50 single ids in a single order
-Response parameters: status :success is successful, others are failed
-Response json:
+#### POST /order/batchCancel Batch withdrawal by order ID
+* Request parameters:
+
+| parameter name | Is it necessary  | Types | Defaults  | description |
+|----------------|------------------|-------|-----------|-------------|
+| ids |	true | 	array[number] | 	|No more than 50 single ids in a single order |
+
+* Response parameters: status :success is successful, others are failed
+* Response json:
+```
 status: success
-POST /order/batchCancelOpenOrders batch withdrawal by condition
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-symbol	false	string	Transaction to symbol	
-type	false	string	Buy: buy sell: sell order	
-Response parameters: status :success is successful, others are failed
-Response json:
+```
+#### POST /order/batchCancelOpenOrders batch withdrawal by condition
+* Request parameters:
+
+| parameter name | Is it necessary  | Types | Defaults  | description |
+|----------------|------------------|-------|-----------|-------------|
+| symbol         | false | string |  |Transaction to symbol|
+| type           | false | string |  |Buy: buy sell: sell order|
+
+* Response parameters: status :success is successful, others are failed
+* Response json:
+```
 status: success
-GET /order/matchResults Query the current transaction and historical transaction of the user
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-symbol	false	string	Transaction to symbol	
-type	false	string	Buy: buy sell: sell order	
-startTime	false	string	Query start date, date format yyyy-MM-dd HH:mm:ss	
-endTime	false	string	Query end date, date format yyyy-MM-dd HH:mm:ss	
-Response data:
-parameter name	Is it necessary?	Types of	description
-id	true	string	Order id
-userId	true	string	User id
-tradeId	true	string	Transaction pair id
-buyCoinId	true	string	Buyer currency id
-sellCoinId	true	string	Seller currency id
-status	true	string	Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked)
-type	true	string	Order type (buy: buy sell: sell order)
-matchType	true	string	Limit: limit order market: market order
-price	true	string	Commissioned unit price
-count	true	string	Number of orders
-amount	true	string	Total amount of entrustment
-leftCount	true	string	The remaining amount
-completeCount	true	string	Number completed
-source	true	string	source
-createTime	true	string	Creation time
-fees	true	string	Handling fee
-version	true	string	Version number (optimistic lock identifier)
-symbol	true	string	Transaction to symbol
-completePrice	true	string	Average price has been completed
-completeAmount	true	string	Total completed
-Response json:
+```
+#### GET /order/matchResults Query the current transaction and historical transaction of the user
+* Request parameters:
+
+| parameter name | Is it necessary  | Types | Defaults  | description |
+|----------------|------------------|-------|-----------|-------------|
+| symbol         | false | string |  | Transaction to symbol |
+| type           | false | string |  | Buy: buy sell: sell order |
+| startTime      | false | string |  | Query start date, date format yyyy-MM-dd HH:mm:ss |
+| endTime        | false | string |  | Query end date, date format yyyy-MM-dd HH:mm:ss	 |
+
+* Response data:
+
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| id             | true | string | Order id |
+| userId         | true | string | User id |
+| tradeId    | true | string  | Transaction pair id |
+| buyCoinId  | true | string  | Buyer currency id |
+| sellCoinId | true | string  |	Seller currency id |
+| status     | true | string  |	Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked) |
+| type       | true | string  |	Order type (buy: buy sell: sell order) |
+| matchType  | true | string  |	Limit: limit order market: market order |
+| price      | true | string  | Commissioned unit price |
+| count      | true | string  |	Number of orders |
+| amount     | true | string  |	Total amount of entrustment |
+| leftCount  | true | string  |	The remaining amount |
+| completeCount | true | string | Number completed |
+| source        | true | string | source | 
+| createTime    | true | string | Creation time |
+| fees          | true | string | Handling fee |
+| version       | true | string | Version number (optimistic lock identifier) |
+| symbol        | true | string | Transaction to symbol |
+| completePrice | true | string | Average price has been completed |
+| completeAmount | true | string | Total completed |
+
+* Response json:
+```
 "data":  [{
 	"id": the order ID,
 	"userId": user ID,
@@ -276,34 +293,42 @@ Response json:
 	"completePrice": The average price has been completed.
 	"completeAmount": Total completed
 	}]
-GET /order/openOrders Query the user's current unfilled order
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-symbol	false	string	Transaction to symbol	
-type	false	string	Buy: buy sell: sell order	
-Response parameters:
-parameter name	Is it necessary?	Types of	description
-id	true	string	Order id
-userId	true	string	User id
-tradeId	true	string	Transaction pair id
-buyCoinId	true	string	Buyer currency id
-sellCoinId	true	string	Seller currency id
-status	true	string	Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked)
-type	true	string	Order type (buy: buy sell: sell order)
-matchType	true	string	Limit: limit order market: market order
-price	true	string	Order unit price
-count	true	string	Number of orders
-amount	true	string	Total price of the order
-leftCount	true	string	The remaining amount
-completeCount	true	string	Amount completed
-completePrice	true	string	Average price
-completeAmount	true	string	Total turnover
-source	true	string	source
-createTime	true	string	Creation time
-fees	true	string	Handling fee
-version	true	string	version
-symbol	true	string	Transaction to symbol
-Response json:
+```
+#### GET /order/openOrders Query the user's current unfilled order
+* Request parameters:
+
+| parameter name | Is it necessary  | Types | Defaults  | description |
+|----------------|------------------|-------|-----------|-------------|
+| symbol       | false | string	 | | Transaction to symbol	 |
+| type         | false | string  | | Buy: buy sell: sell order	 |
+
+* Response parameters:
+
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| id         | true | string | Order id |
+| userId     | true | string | User id |
+| tradeId    | true | string |	Transaction pair id |
+| buyCoinId  | true | string |	Buyer currency id |
+| sellCoinId | true | string |	Seller currency id |
+| status     | true | string |	Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked) |
+| type	     | true | string | Order type (buy: buy sell: sell order) |
+| matchType  | true | string | Limit: limit order market: market order |
+| price      | true | string |	Order unit price |
+| count      | true | string |	Number of orders |
+| amount     | true | string |	Total price of the order |
+| leftCount  | true | string |	The remaining amount |
+| completeCount | true | string | Amount completed |
+| completePrice | true | string | Average price |
+| completeAmount | true | string | Total turnover |
+| source | true | string | source |
+| createTime | true | string | Creation time |
+| fees       | true | string | Handling fee |
+| version    | true | string |	version |
+| symbol     | true | string |	Transaction to symbol |
+
+* Response json:
+```
 data:  [{
 	"id": the order ID,
 	"userId": user ID,
@@ -326,63 +351,84 @@ data:  [{
 	"completeAmount": total turnover,
         "symbol": transaction to symbol
 }]
-POST /order/cancelEntrust revoke an order by order-id
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-id	true	string		Order id
-Response parameters: status :success is successful, others are failed
-Response json:
+```
+#### POST /order/cancelEntrust revoke an order by order-id
+* Request parameters:
+
+| parameter name | Is it necessary  | Types | Defaults  | description |
+|----------------|------------------|-------|-----------|-------------|
+| id       | true |  string | |		Order id |
+
+* Response parameters: status :success is successful, others are failed
+* Response json:
+```
 status: success
-POST /order/saveEntrust order
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-count	true	number		Number of orders
-matchType	true	string		Limit: limit order market: market order
-payPwd	true	string		transaction password
-price	false	number		Entrusted price (market order can be empty)
-source	false	string		Source api
-symbol	true	string		Transaction to symbol
-type	true	string		Buy: buy sell: sell order
-Response parameters:
-parameter name	Is it necessary?	Types of	description
-entrustId	true	number	Order id
-Response json:
+```
+
+#### POST /order/saveEntrust order
+* Request parameters:
+
+| parameter name | Is it necessary | Types | Defaults |	description |
+|----------------|-----------------|-------|----------|-------------|
+| count | true | number |  |Number of orders |
+| matchType | true | string |	|Limit: limit order market: market order |
+| payPwd | true | string |    |transaction password |
+| price  | false | number | |	Entrusted price (market order can be empty) |
+| source | false | string | 	| Source api |
+| symbol | true  | string |	 |Transaction to symbol |
+| type   | true  | string |	 |Buy: buy sell: sell order |
+
+*Response parameters:
+
+| parameter name |	Is it necessary  |	Types |	description |
+| entrustId	| true | number | Order id |
+
+* Response json:
+```
 data:  {
        "entrustId": single ID
 }
-GET /order/queryMyEntrust Query my order
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-symbol	false	string		Transaction to symbol
-matchType	false	string		Limit: limit order market: market order
-type	false	string		Buy: buy sell: sell order
-startTime	false	string		Query start date, date format yyyy-MM-dd HH:mm:ss
-endTime	false	string		Query end date, date format yyyy-MM-dd HH:mm:ss
-currentPage	false	number	1	current page number
-pageSize	false	number	10	How many pieces are displayed per page
-Response parameters:
-parameter name	Is it necessary?	Types of	description
-id	true	string	Order id
-userId	true	string	User id
-tradeId	true	string	Transaction pair id
-buyCoinId	true	string	Buyer currency id
-sellCoinId	true	string	Seller currency id
-status	true	string	Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked)
-type	true	string	Order type (buy: buy sell: sell order)
-matchType	true	string	Limit: limit order market: market order
-price	true	string	Order unit price
-count	true	string	Number of orders
-amount	true	string	Total price of the order
-leftCount	true	string	The remaining amount
-completeCount	true	string	Amount completed
-completePrice	true	string	Average price
-completeAmount	true	string	Total turnover
-source	true	string	source
-createTime	true	string	Creation time
-fees	true	string	Handling fee
-version	true	string	version
-symbol	true	string	Transaction to symbol
-Response json:
+```
+#### GET /order/queryMyEntrust Query my order
+* Request parameters:
+
+| parameter name | Is it necessary |	Types |	Defaults | description |
+|----------------|-----------------|----------|----------|-------------|
+| symbol         | false | string | 	Transaction to symbol |
+| matchType      | false | string |		Limit: limit order market: market order |
+| type           | false | string | 	Buy: buy sell: sell order |
+| startTime      | false | string |	Query start date, date format yyyy-MM-dd HH:mm:ss |
+| endTime        | false | string |	Query end date, date format yyyy-MM-dd HH:mm:ss |
+| currentPage    | false | number | 1 | current page number |
+| pageSize       | false | number | 10 | How many pieces are displayed per page |
+
+* Response parameters:
+
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| id             | true | string | Order id |
+| userId         | true | string | User id |
+| tradeId        | true | string | Transaction pair id  |
+| buyCoinId      | true | string | Buyer currency id |
+| sellCoinId     | true | string | Seller currency id |
+| status         | true | string | Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked) |
+| type           | true | string | Order type (buy: buy sell: sell order) |
+| matchType      | true | string | Limit: limit order market: market order |
+| price          | true | string | Order unit price |
+| count          | true | string | Number of orders |
+| amount         | true | string | Total price of the order |
+| leftCount      | true | string | The remaining amount |
+| completeCount  | true | string | Amount completed |
+| completePrice  | true | string | Average price |
+| completeAmount | true | string | Total turnover |
+| source         | true | string | source |
+| createTime	 | true | string | Creation time |
+| fees           | true | string | Handling fee |
+| version	 | true	| string | version |
+| symbol	 | true | string | Transaction to symbol |
+
+* Response json:
+```
 data:  {
        "pageNum": the current page,
 	"pageSize": the current number of pages,
@@ -411,30 +457,36 @@ data:  {
                "symbol": transaction to symbol
               }]
 }
-GET /order/queryMyHisEntrust Query my history order
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-symbol	false	string		Transaction to symbol
-matchType	false	string		Limit: limit order market: market order
-type	false	string		Buy: buy sell: sell order
-startTime	false	string		Query start date, date format yyyy-MM-dd HH:mm:ss
-endTime	false	string		Query end date, date format yyyy-MM-dd HH:mm:ss
-status	false	string		Comple-trade: complete transaction withdrawn: revoked
-currentPage	false	number	1	current page number
-pageSize	false	number	10	How many pieces are displayed per page
-Response parameters:
-parameter name	Is it necessary?	Types of	description
-id	true	string	Order id
-userId	true	string	User id
-tradeId	true	string	Transaction pair id
-buyCoinId	true	string	Buyer currency id
-sellCoinId	true	string	Seller currency id
-status	true	string	Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked)
-type	true	string	Order type (buy: buy sell: sell order)
-matchType	true	string	Limit: limit order market: market order
-price	true	string	Order unit price
-count	true	string	Number of orders
-amount	true	string	Total price of the order
+```
+#### GET /order/queryMyHisEntrust Query my history order
+* Request parameters:
+
+| parameter name | Is it necessary |	Types |	Defaults | description |
+|----------------|-----------------|----------|----------|-------------|
+| symbol    | false | string | 	| Transaction to symbol |
+| matchType | false | string |	| Limit: limit order market: market order |
+| type      | false | string |	| Buy: buy sell: sell order |
+| startTime | false | string |	|	Query start date, date format yyyy-MM-dd HH:mm:ss |
+| endTime   | false | string |	|Query end date, date format yyyy-MM-dd HH:mm:ss |
+| status    | false | string | 	|Comple-trade: complete transaction withdrawn: revoked |
+| currentPage | false | number | 1 |	current page number |
+| pageSize    |	false |	number |10 |	How many pieces are displayed per page |
+
+* Response parameters:
+
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| id        | true | string | Order id |
+| userId    | true | string | User id |
+| tradeId   | true | string |	Transaction pair id |
+| buyCoinId | true | string |	Buyer currency id |
+| sellCoinId| true | string |	Seller currency id |
+| status    | true | string |	Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked) |
+| type      | true | string | Order type (buy: buy sell: sell order) |
+| matchType | true | string | Limit: limit order market: market order |
+| price     | true | string | Order unit price |
+| count     | true | string | Number of orders |
+| amount    | true | string | Total price of the order |
 leftCount	true	string	The remaining amount
 completeCount	true	string	Amount completed
 completePrice	true	string	Average price
@@ -444,7 +496,8 @@ createTime	true	string	Creation time
 fees	true	string	Handling fee
 version	true	string	version
 symbol	true	string	Transaction to symbol
-Response json:
+* Response json:
+```
 data:  {
        "pageNum": the current page,
 	"pageSize": the current number of pages,
@@ -473,8 +526,10 @@ data:  {
                 "symbol": transaction to symbol
               }]
 }
-GET /order/queryMyEntrustOrder transaction details
-Request parameters:
+```
+#### GET /order/queryMyEntrustOrder transaction details
+* Request parameters:
+
 parameter name	Is it necessary?	Types of	Defaults	description
 symbol	false	string		Transaction to symbol
 matchType	false	string		Limit: limit order market: market order
@@ -483,7 +538,8 @@ startTime	false	string		Query start date, date format yyyy-MM-dd HH:mm:ss
 endTime	false	string		Query end date, date format yyyy-MM-dd HH:mm:ss
 currentPage	false	number	1	current page number
 pageSize	false	number	10	How many pieces are displayed per page
-Response parameters:
+
+* Response parameters:
 parameter name	Is it necessary?	Types of	description
 id	true	string	Transaction detail id
 entrustId	true	string	Order id
@@ -498,7 +554,8 @@ count	true	string	The number of transactions
 amount	true	string	Total turnover
 fees	true	string	Handling fee
 createTime	true	string	Transaction time
-Response json:
+* Response json:
+```
 data:  {
        "pageNum": the current page,
 	"pageSize": the current number of pages,
@@ -518,11 +575,15 @@ data:  {
                "fees" : handling fee
                }]
 }
-GET /order/queryOrderById Query the order by ID
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-orderId	true	number		Order id
-Response parameters:
+```
+#### GET /order/queryOrderById Query the order by ID
+* Request parameters:
+| parameter name | Is it necessary |	Types |	Defaults | description |
+|----------------|-----------------|----------|----------|-------------|
+| orderId    | true | number | 	 | Order id |
+
+* Response parameters:
+
 parameter name	Is it necessary?	Types of	description
 id	true	string	Order id
 userId	true	string	User id
@@ -544,26 +605,29 @@ createTime	true	string	Create quantity
 fees	true	string	Handling fee
 version	true	string	version number
 symbol	true	string	Transaction to symbol
-POST /dw/addWithdraw
-Request parameters:
+#### POST /dw/addWithdraw
+* Request parameters:
 parameter name	Is it necessary?	Types of	Defaults	description
 coinName	true	string		Currency name (btc...)
 withdrawAddress	true	string		Coin address
 amount	true	string		Number of coins
 networkFees	true	string		Handling fee
 remark	false	string		Coin label
-Response parameters: status :success is successful, others are failed
+* Response parameters: status :success is successful, others are failed
 Response json:
+```
 status: success
-POST /dw/cancelWithdraw
-Request parameters:
+```
+#### POST /dw/cancelWithdraw
+* Request parameters:
 parameter name	Is it necessary?	Types of	Defaults	description
 id	true	number		User coin id
 Response parameters: status :success is successful, others are failed
 Response json:
 status: success
-GET /dw/queryWithdrawRecording Query user charge record
-Request parameters:
+#### GET /dw/queryWithdrawRecording Query user charge record
+* Request parameters:
+
 parameter name	Is it necessary?	Types of	Defaults	description
 coinName	false	string		Transaction to symbol
 type	false	string		Transaction type recharge: recharge withdraw: withdrawal
@@ -571,7 +635,9 @@ startTime	false	string		Query start date, date format yyyy-MM-dd HH:mm:ss
 endTime	false	string		Query end date, date format yyyy-MM-dd HH:mm:ss
 currentPage	false	number	1	current page number
 pageSize	false	number	10	How many pieces are displayed per page
-Response parameters:
+
+* Response parameters:
+
 parameter name	Is it necessary?	Types of	description
 id	true	string	Recharge record id
 userId	true	string	User id
@@ -590,6 +656,7 @@ createTime	true	string	Creation time
 updateTime	true	string	Last Modified
 coinName	true	string	Currency name
 Response json:
+```
 data:{
     "id": charge the record ID,
     "userId": user ID,
@@ -608,17 +675,24 @@ data:{
     "updateTime": Last modified time,
     "coinName": the name of the currency,
 }
-GET /personal/getUserFinanceList user asset query
-Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-selectType	true	string	all	All: Query all the assets of the user noall: query the user non-zero assets
-Response parameters:
-parameter name	Is it necessary?	Types of	description
-coinName	true	string	Currency name
-total	true	string	Available Balance
-frozen	true	string	Freeze balance
-financing	true	string	Financial balance
-Response json:
+```
+#### GET /personal/getUserFinanceList user asset query
+* Request parameters:
+
+| parameter name | Is it necessary |	Types |	Defaults | description |
+|----------------|-----------------|----------|----------|-------------|
+| selectType     | true | string   | 	all |	All: Query all the assets of the user noall: query the user non-zero assets |
+
+* Response parameters:
+
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| coinName   | true | string |	Currency name |
+| total      | true | string | Available Balance |
+| frozen     | true | string | Freeze balance |
+| financing  | true | string |	Financial balance |
+* Response json:
+```
 data:{
     "coinName": the name of the currency,
     "total": available balance,
@@ -626,8 +700,12 @@ data:{
     "financing": financial balance
 
 }
-GET /coin/enabled Get a list of currency information
-No request parameter
-Response parameters:
+```
+#### GET /coin/enabled Get a list of currency information
+* No request parameter
+* Response parameters:
+
+```
 Data:[Capital currency name]
+```
 
