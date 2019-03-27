@@ -1,4 +1,3 @@
-````
 # encoding=utf-8
 import hmac
 import hashlib
@@ -123,6 +122,3 @@ class FubtApi:
             print(data['status'])
             return 'fail'
         return 'ok'
-
-
-````
