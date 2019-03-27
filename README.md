@@ -1,6 +1,6 @@
 # API
 
-![](./images/logo.jpg)
+![](./images/logo.png)
 币族云API
 
 中文文档地址： <a href="https://github.com/bizuyun/API/wiki/">API 接口文档</a>
