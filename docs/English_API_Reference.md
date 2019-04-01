@@ -15,27 +15,27 @@ Base currency + pricing currency.For example, ```BTC/USDT```, ```symbol``` is **
 # Interface list
 | Module  |  Request address | Http access type |	description |	Whether it is necessary to check |
 |---------|------------------|------------------|-------------------|------------------------------------|
-| Market  |  /market/kline	| GET |  Get k-line data for the specified transaction pair |	N |
-| Market  |  /market/tickers	| GET |  Get information on all trading pairs   | N |
-| Market  |  /market/ticker	| GET |	 Get information about the specified deal pair |N |
-| Market  |  /market/trade      | GET |	 Get historical transaction data for the specified transaction pair | N |
-| Market  |  /market/depth      | GET |	 Get the specified transaction versus depth data | N |
-| Market  |  /market/tradeInfo  | GET |	 Get all transactions against pricing units and decimal places | N |
-| Currency transaction | /order/batchCancel |	POST	| Batch withdrawal by order |	Y |
-| Currency transaction | /order/batchCancelOpenOrders	| POST |	Batch withdrawal by condition |	Y |
-| Currency transaction | /order/matchResults | GET | Query the current transaction and historical transaction of the user | N |
-| Currency transaction | /order/openOrders   | GET | Query the user's current unfilled order | N |
-| Currency transaction | /order/cancelEntrust |	POST |	Cancel an order by order-id | Y |
-| Currency transaction | /order/saveEntrust   |	POST |	Order |	Y |
-| Currency transaction | /order/queryMyEntrust | GET |	Inquire about my order | N |
-| Currency transaction | /order/queryMyHisEntrust | GET | Query my historical order | N |
-| Currency transaction | /order/queryMyEntrustOrder | GET | Order transaction details |	N |
-| Currency transaction | /order/queryOrderById  | GET |	Query the order according to the id | N |
-| Punching coins | /dw/addWithdraw | POST | Add new application for currency | Y |
-| Punching coins | /dw/cancelWithdraw | POST |	Withdrawal of coins | Y |
-| Punching coins | /dw/queryWithdrawRecording | GET | Query user charge record | N | 
-| User assets    | /personal/getUserFinanceList | GET |	User asset query | N |
-| Currency information | /coin/enabled | GET | Get a list of currency information | N |
+| Market  |  [/market/kline](#get-marketkline-get-the-k-line-data-of-the-specified-transaction-pair)	| GET |  Get k-line data for the specified transaction pair |	N |
+| Market  |  [/market/tickers](#get-markettickers-get-information-on-all-trade-pairs)	| GET |  Get information on all trading pairs   | N |
+| Market  |  [/market/ticker](#get-marketticker-get-information-about-the-specified-deal-pair)	| GET |	 Get information about the specified deal pair |N |
+| Market  |  [/market/trade](#get-markettrade-get-historical-transaction-data-for-the-specified-deal-pair)      | GET |	 Get historical transaction data for the specified transaction pair | N |
+| Market  |  [/market/depth](#get-marketdepth-get-the-specified-transaction-vs-depth-data)      | GET |	 Get the specified transaction versus depth data | N |
+| Market  |  [/market/tradeInfo](#get-markettradeinfo-get-all-transactions-against-pricing-units-and-decimal-places)  | GET |	 Get all transactions against pricing units and decimal places | N |
+| Currency transaction | [/order/batchCancel](#post-orderbatchcancel-batch-withdrawal-by-order-id) |	POST	| Batch withdrawal by order |	Y |
+| Currency transaction | [/order/batchCancelOpenOrders](#post-orderbatchcancelopenorders-batch-withdrawal-by-condition)	| POST |	Batch withdrawal by condition |	Y |
+| Currency transaction | [/order/matchResults](#get-ordermatchresults-query-the-current-transaction-and-historical-transaction-of-the-user) | GET | Query the current transaction and historical transaction of the user | N |
+| Currency transaction | [/order/openOrders](#get-orderopenorders-query-the-users-current-unfilled-order)   | GET | Query the user's current unfilled order | N |
+| Currency transaction | [/order/cancelEntrust](#post-ordercancelentrust-revoke-an-order-by-order-id) |	POST |	Cancel an order by order-id | Y |
+| Currency transaction | [/order/saveEntrust](#post-ordersaveentrust-order)   |	POST |	Order |	Y |
+| Currency transaction | [/order/queryMyEntrust](#get-orderquerymyentrust-query-my-order) | GET |	Inquire about my order | N |
+| Currency transaction | [/order/queryMyHisEntrust](#get-orderquerymyhisentrust-query-my-history-order) | GET | Query my historical order | N |
+| Currency transaction | [/order/queryMyEntrustOrder](#get-orderquerymyentrustorder-transaction-details) | GET | Order transaction details |	N |
+| Currency transaction | [/order/queryOrderById](#get-orderqueryorderbyid-query-the-order-by-id)  | GET |	Query the order according to the id | N |
+| Punching coins | [/dw/addWithdraw](#post-dwaddwithdraw-add-new-application-for-currency) | POST | Add new application for currency | Y |
+| Punching coins | [/dw/cancelWithdraw](#post-dwcancelwithdraw-withdrawal-of-coins) | POST |	Withdrawal of coins | Y |
+| Punching coins | [/dw/queryWithdrawRecording](#get-dwquerywithdrawrecording-query-user-charge-record) | GET | Query user charge record | N | 
+| User assets    | [/personal/getUserFinanceList](#get-personalgetuserfinancelist-user-asset-query) | GET |	User asset query | N |
+| Currency information | [/coin/enabled](#get-coinenabled-get-a-list-of-currency-information) | GET | Get a list of currency information | N |
 ## Market
 #### GET /market/kline Get the K-line data of the specified transaction pair
 * Request parameters:
@@ -161,10 +161,10 @@ Response json:
 |----------------|-----------------|-------|-------------|
 | buy |	true |	array[object] |	Buy-depth data collection |
 | price | true | number | price |
-| amount | true | number Quantity |
+| amount | true | number | Quantity |
 | sell   | true | array[object] | Sell ​​depth data collection |
-| price  | true | number price |
-| amount | true | number Quantity |
+| price  | true | number | price |
+| amount | true | number | Quantity |
 
 * Response json:
 ```
@@ -394,11 +394,11 @@ data:  {
 
 | parameter name | Is it necessary |	Types |	Defaults | description |
 |----------------|-----------------|----------|----------|-------------|
-| symbol         | false | string | 	Transaction to symbol |
-| matchType      | false | string |		Limit: limit order market: market order |
-| type           | false | string | 	Buy: buy sell: sell order |
-| startTime      | false | string |	Query start date, date format yyyy-MM-dd HH:mm:ss |
-| endTime        | false | string |	Query end date, date format yyyy-MM-dd HH:mm:ss |
+| symbol         | false | string | 	| Transaction to symbol |
+| matchType      | false | string |	| Limit: limit order market: market order |
+| type           | false | string | 	| Buy: buy sell: sell order |
+| startTime      | false | string |	| Query start date, date format yyyy-MM-dd HH:mm:ss |
+| endTime        | false | string |	| Query end date, date format yyyy-MM-dd HH:mm:ss |
 | currentPage    | false | number | 1 | current page number |
 | pageSize       | false | number | 10 | How many pieces are displayed per page |
 
@@ -583,6 +583,7 @@ data:  {
 ```
 #### GET /order/queryOrderById Query the order by ID
 * Request parameters:
+
 | parameter name | Is it necessary |	Types |	Defaults | description |
 |----------------|-----------------|----------|----------|-------------|
 | orderId    | true | number | 	 | Order id |
