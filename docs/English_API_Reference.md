@@ -492,10 +492,11 @@ data:  {
 | completePrice | true | string | Average price |
 | completeAmount| true | string | Total turnover |
 | source | true | string | source |
-createTime	true	string	Creation time
-fees	true	string	Handling fee
-version	true	string	version
-symbol	true	string	Transaction to symbol
+| createTime	| true	 | string |	Creation time |
+| fees	 | true	| string | Handling fee |
+| version | true | string | version |
+| symbol | true | string | Transaction to symbol |
+
 * Response json:
 ```
 data:  {
@@ -530,30 +531,34 @@ data:  {
 #### GET /order/queryMyEntrustOrder transaction details
 * Request parameters:
 
-parameter name	Is it necessary?	Types of	Defaults	description
-symbol	false	string		Transaction to symbol
-matchType	false	string		Limit: limit order market: market order
-type	false	string		Buy: buy sell: sell order
-startTime	false	string		Query start date, date format yyyy-MM-dd HH:mm:ss
-endTime	false	string		Query end date, date format yyyy-MM-dd HH:mm:ss
-currentPage	false	number	1	current page number
-pageSize	false	number	10	How many pieces are displayed per page
+| parameter name | Is it necessary |	Types |	Defaults | description |
+|----------------|-----------------|----------|----------|-------------|
+| symbol         | false           | string   |	  | Transaction to symbol |
+| matchType	 | false	   | string   |	  | Limit: limit order market: market order |
+| type	         | false	   | string   |   | Buy: buy sell: sell order |
+| startTime	 | false	   | string   |   | Query start date, date format yyyy-MM-dd HH:mm:ss |
+| endTime        | false           | string   |   | Query end date, date format yyyy-MM-dd HH:mm:ss |
+| currentPage    | false  	   | number   |	1 | current page number |
+| pageSize       | false           | number   | 10| How many pieces are displayed per page |
 
 * Response parameters:
-parameter name	Is it necessary?	Types of	description
-id	true	string	Transaction detail id
-entrustId	true	string	Order id
-type	true	string	Order type (buy: buy sell: sell order)
-tradeId	true	string	Transaction pair id
-buyCoinId	true	string	Buyer currency id
-sellCoinId	true	string	Seller currency id
-symbol	true	string	Transaction to symbol
-matchType	true	string	Limit: limit order market: market order
-price	true	string	Transaction unit price
-count	true	string	The number of transactions
-amount	true	string	Total turnover
-fees	true	string	Handling fee
-createTime	true	string	Transaction time
+
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| id             | true          | string | Transaction detail id |
+| entrustId	 | true	         | string | Order id |
+| type           | true          | string | Order type (buy: buy sell: sell order) |
+| tradeId        | true          | string | Transaction pair id |
+| buyCoinId      | true          | string | Buyer currency id |
+| sellCoinId     | true          | string | Seller currency id |
+| symbol         | true          | string | Transaction to symbol |
+| matchType      | true          | string | Limit: limit order market: market order |
+| price          | true          | string | Transaction unit price |
+| count          | true          | string | The number of transactions |
+| amount         | true	         | string | Total turnover| 
+| fees           | true          | string | Handling fee |
+| createTime     | true          | string | Transaction time |
+
 * Response json:
 ```
 data:  {
@@ -584,78 +589,92 @@ data:  {
 
 * Response parameters:
 
-parameter name	Is it necessary?	Types of	description
-id	true	string	Order id
-userId	true	string	User id
-tradeId	true	string	Transaction pair id
-buyCoinId	true	string	Buyer currency id
-sellCoinId	true	string	Seller currency id
-status	true	string	Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked)
-type	true	string	Order type (buy: buy sell: sell order)
-matchType	true	string	Limit: limit order market: market order
-price	true	string	Order price
-count	true	string	Number of orders
-amount	true	string	Order amount
-leftCount	true	string	The remaining amount
-completeCount	true	string	The number of transactions
-completePrice	true	string	Average transaction price
-completeAmount	true	string	Turnover
-source	true	string	source
-createTime	true	string	Create quantity
-fees	true	string	Handling fee
-version	true	string	version number
-symbol	true	string	Transaction to symbol
-#### POST /dw/addWithdraw
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| id             | true            | string | Order id |
+| userId         | true            | string | User id |
+| tradeId        | true            | string | Transaction pair id |
+| buyCoinId      | true            | string | Buyer currency id |
+| sellCoinId     | true            | string | Seller currency id |
+| status         | true            | string | Status (no-trade: unsold some-trade: partial deal comple-trade: complete deal withdrawn: revoked) |
+| type	         | true            | string | Order type (buy: buy sell: sell order) |
+| matchType      | true            | string | Limit: limit order market: market order |
+| price          | true            | string | Order price |
+| count          | true            | string | Number of orders |
+| amount         | true            | string | Order amount |
+| leftCount      | true            | string | The remaining amount |
+| completeCount  | true            | string | The number of transactions |
+| completePrice  | true            | string | Average transaction price |
+| completeAmount | true            | string | Turnover |
+| source         | true            | string | source |
+| createTime     | true            | string | Create quantity |
+| fees           | true            | string | Handling fee |
+| version        | true            | string | version number |
+| symbol         | true            | string | Transaction to symbol |
+
+#### POST /dw/addWithdraw Add new application for currency
 * Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-coinName	true	string		Currency name (btc...)
-withdrawAddress	true	string		Coin address
-amount	true	string		Number of coins
-networkFees	true	string		Handling fee
-remark	false	string		Coin label
+
+| parameter name | Is it necessary |	Types |	Defaults | description |
+|----------------|-----------------|----------|----------|-------------|
+| coinName       | true            | string   |          | Currency name (btc...) |
+| withdrawAddress| true            | string   |          | Coin address |
+| amount         | true            | string   |          | Number of coins |
+| networkFees    | true            | string   |		 | Handling fee |
+| remark         | false           | string   |		 | Coin label |
+
 * Response parameters: status :success is successful, others are failed
-Response json:
+
+* Response json:
 ```
 status: success
 ```
-#### POST /dw/cancelWithdraw
+#### POST /dw/cancelWithdraw Withdrawal of coins
 * Request parameters:
-parameter name	Is it necessary?	Types of	Defaults	description
-id	true	number		User coin id
-Response parameters: status :success is successful, others are failed
-Response json:
+
+| parameter name | Is it necessary |	Types |	Defaults | description |
+|----------------|-----------------|----------|----------|-------------|
+| id             | true            | number   | 	 | User coin id|
+
+* Response parameters: status :success is successful, others are failed
+* Response json:
+```
 status: success
+```
 #### GET /dw/queryWithdrawRecording Query user charge record
 * Request parameters:
 
-parameter name	Is it necessary?	Types of	Defaults	description
-coinName	false	string		Transaction to symbol
-type	false	string		Transaction type recharge: recharge withdraw: withdrawal
-startTime	false	string		Query start date, date format yyyy-MM-dd HH:mm:ss
-endTime	false	string		Query end date, date format yyyy-MM-dd HH:mm:ss
-currentPage	false	number	1	current page number
-pageSize	false	number	10	How many pieces are displayed per page
+| parameter name | Is it necessary |	Types |	Defaults | description |
+|----------------|-----------------|----------|----------|-------------|
+| coinName       | false           | string   |       |	Transaction to symbol |
+| type           | false           | string   |	      | Transaction type recharge: recharge withdraw: withdrawal |
+| startTime      | false           | string   |	      | Query start date, date format yyyy-MM-dd HH:mm:ss |
+| endTime        | false           | string   |	      | Query end date, date format yyyy-MM-dd HH:mm:ss |
+| currentPage    | false           | number   |	1     |	current page number
+| pageSize       | false           | number   |	10    | How many pieces are displayed per page |
 
 * Response parameters:
 
-parameter name	Is it necessary?	Types of	description
-id	true	string	Recharge record id
-userId	true	string	User id
-coinId	true	string	Currency id
-type	true	string	Transaction type recharge: recharge withdraw: withdrawal
-status	true	string	State wait-withdraw: Waiting for withdrawal lock: Lock withdrawal-success: Cash withdrawal success: Cancel recharging: Confirm recharge-success: Recharge successfully: Audited
-amount	true	string	Quantity
-networkFees	true	string	Handling fee
-withdrawAddress	true	string	Coin address
-rechargeAddress	true	string	Recharge address
-source	true	string	source
-hash	true	string	Transaction hash
-successCount	true	string	Successful confirmation number
-confirmationCount	true	string	Confirmation number
-createTime	true	string	Creation time
-updateTime	true	string	Last Modified
-coinName	true	string	Currency name
-Response json:
+| parameter name | Is it necessary | Types | description |
+|----------------|-----------------|-------|-------------|
+| id             | true            | string| Recharge record id |
+| userId         | true            | string| User id |
+| coinId         | true            | string| Currency id |
+| type           | true            | string| Transaction type recharge: recharge withdraw: withdrawal |
+| status         | true            | string| State wait-withdraw: Waiting for withdrawal lock: Lock withdrawal-success: Cash withdrawal success: Cancel recharging: Confirm recharge-success: Recharge successfully: Audited |
+| amount         | true            | string| Quantity |
+| networkFees    | true            | string| Handling fee |
+| withdrawAddress| true            | string| Coin address |
+| rechargeAddress| true            | string| Recharge address |
+| source         | true            | string| source |
+| hash           | true            | string| Transaction hash |
+| successCount   | true            | string| Successful confirmation number |
+| confirmationCount| true          | string| Confirmation number |
+| createTime     | true            | string| Creation time |
+| updateTime     | true            | string| Last Modified |
+| coinName       | true            | string| Currency name |
+
+* Response json:
 ```
 data:{
     "id": charge the record ID,
