@@ -66,7 +66,7 @@ symbol=btcusdt&klineType=min&klineStep=step0&accessKey=*******************
 ```
 4. The order after sorting is:
 ```
-accessKey=*******************&klineStep=step0&klineType=min&symbol=btc_usdt
+accessKey=*******************&klineStep=step0&klineType=min&symbol=btcusdt
 ```
 5. The sorted parameters are calculated and encrypted, encrypted using secretKey, and the encrypted byte array is encoded into base64 by base64, and the value is added to the parameter, and the signature field is added. Finally, the url address is:
 ```
