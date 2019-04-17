@@ -385,9 +385,7 @@ status: success
 
 * Response json:
 ```
-data:  {
-       "entrustId": single ID
-}
+data:  single ID
 ```
 #### GET /order/queryMyEntrust Query my order
 * Request parameters:
