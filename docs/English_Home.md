@@ -13,13 +13,13 @@ Website address is <a href="https://www.bzu.com">https://www.bzu.com</a>
 
 # Rest market, trading api
 
-<a href="https://github.com/bizuyun/API/blob/master/docs/English_Signature_Authentication.md">Signature certification (important, please read carefully)</a>
+<a href="https://github.com/bizuyun/API/blob/master/docs/English_Signature_Authentication.md">Signature Certification (important, please read carefully)</a>
 
 
-<a href="https://github.com/bizuyun/API/blob/master/docs/English_Request_Description.md">Request description</a>
+<a href="https://github.com/bizuyun/API/blob/master/docs/English_Request_Description.md">Request Description</a>
 
 
-<a href="https://github.com/bizuyun/API/docs/English_API_Reference.md">API Reference</a>
+<a href="https://github.com/bizuyun/API/blob/master/docs/English_API_Reference.md">API Reference</a>
 
 
-<a href="https://github.com/bizuyun/API/blob/master/docs/English_Error_Code.md">error code</a>
+<a href="https://github.com/bizuyun/API/blob/master/docs/English_Error_Code.md">Error Code</a>

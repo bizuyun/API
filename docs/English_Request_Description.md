@@ -6,7 +6,7 @@
 
 - The **POST** request parameter must be **json**, and other parameter servers will not receive it.
 
-- In all requests, the parameter accessKey is mandatory. If the value is not passed, the service directly returns an error. **If the request method is GET, this value requires the url to encode.**
+- In all requests, the parameter accessKey is mandatory. If the value is not passed, the service directly returns an error. **If the request method is GET, this value requires the url to encode. POST does not need .**
 
 - All methods that require signature verification need to pass the timestamp parameter for time judgment in milliseconds.The link will be rejected if it exceeds the current time by 5 seconds.
 

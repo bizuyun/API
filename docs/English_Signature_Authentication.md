@@ -58,18 +58,18 @@ API requests are most likely to be tampered with while being sent over the Inter
 
 2. If the original path + parameter address is the following example, lift the chestnut: if the k line needs to be checked
 ```
- https://xxx/v1/market/kline?symbol=btc_usdt&klineType=min&klineStep=step5&accessKey=*******************
+ https://xxx/v1/market/kline?symbol=btcusdt&klineType=min&klineStep=step5&accessKey=*******************
 ```
 3. **Sort the parameter names in the order of ascii codes.** The original parameter order is:
 ```
-symbol=btc_usdt&klineType=min&klineStep=step0&accessKey=*******************
+symbol=btcusdt&klineType=min&klineStep=step0&accessKey=*******************
 ```
 4. The order after sorting is:
 ```
-accessKey=*******************&klineStep=step0&klineType=min&symbol=btc_usdt
+accessKey=*******************&klineStep=step0&klineType=min&symbol=btcusdt
 ```
 5. The sorted parameters are calculated and encrypted, encrypted using secretKey, and the encrypted byte array is encoded into base64 by base64, and the value is added to the parameter, and the signature field is added. Finally, the url address is:
 ```
- https://xxx/v1/market/kline?symbol=btc_usdt&klineType=min&klineStep=step5&accessKey=*******************&signature=加密过后的密文
+ https://xxx/v1/market/kline?symbol=btcusdt&klineType=min&klineStep=step5&accessKey=*******************&signature=加密过后的密文
 ```
 ### The parameter must be json when the /**POST** request is made, the other parameter API will not receive, the parameter encryption in json is the same as the GET encryption method. After the encryption is completed, add the signature in json: the encrypted ciphertext parameter can be!

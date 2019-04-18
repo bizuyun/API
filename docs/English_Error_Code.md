@@ -49,7 +49,7 @@ Code
 | entrust_failure_0003  |	Match type cannot be empty |
 | entrust_failure_0004	|       Merchant id cannot be empty |
 | entrust_failure_0005  |	User does not exist |
-| entrust_failure_0007  |	Transaction pair does not exist |
+| entrust_failure_0009  |	Transaction pair does not exist |
 | entrust_failure_0010  |	Transaction password cannot be empty |
 | entrust_failure_0011  |	Transaction password is wrong |
 | entrust_failure_0012  |	The order type cannot be empty |
