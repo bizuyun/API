@@ -62,7 +62,7 @@ public class Sign {
     }
 
     public static void main(String[] args) {
-        String url = "https://api.fubt.co/v1/order/saveEntrust";
+        String url = "https://xxx/v1/order/saveEntrust";
         String accessKey = "accessKey xxx";
         String secretKey = "secretKey xxx";
 
