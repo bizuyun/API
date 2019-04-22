@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Map;
 import org.slf4j.Logger;
 
@@ -18,7 +18,7 @@ public class Sign {
 
     public static String jsonToString(String json){
         JSONObject jsonObject = JSON.parseObject(json);
-        Map<String, Object> treeMap = new HashMap<>();
+        Map<String, Object> treeMap = new TreeMap<>();
         jsonObject.forEach((s, o) -> treeMap.put(s, o));
         StringBuilder result = new StringBuilder();
         treeMap.forEach((s, o) -> {
