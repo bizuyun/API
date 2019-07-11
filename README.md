@@ -7,4 +7,4 @@
 English Document : <a href="https://github.com/bizuyun/API/blob/master/docs/English_Home.md">English Document </a>
 
 ## 交流方式-微信(Wechat)
-![](./images/wechart.jpg)
+![](./images/wechat.jpg)
