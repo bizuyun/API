@@ -54,7 +54,7 @@ API requests are most likely to be tampered with while being sent over the Inter
 
 - **Note: In the https request path, the original request parameter value does not need to be sorted and passed the value. Only the encrypted parameters need to be sorted. Please know.**
 
-1. The path address is https://api.fubt.co/v1/market/kline, the parameters are symbol, klineType, klineStep, accessKey, where accessKey is required, and this parameter must be added to each api interface.If the parameter does not require verification, the signature parameter may not be passed.
+1. The path address is https://api.fubt.co/v1/market/kline, the parameters are symbol, klineType, klineStep, accessKey, where accessKey is required, and this parameter must be added to each api interface.Specific request Please read the <a href="https://github.com/bizuyun/API/blob/master/docs/English_Request_Description.md">Request Description</a>. If the parameter does not require verification, the signature parameter may not be passed.
 
 2. If the original path + parameter address is the following example, lift the chestnut: if the k line needs to be checked
 ```
