@@ -728,4 +728,22 @@ data:{
 ```
 Data:[Capital currency name]
 ```
+#### GET /coin/exchange Exchange rate conversion
+* Response parameters:
 
+| parameter name | Is it necessary |	Types |	Defaults | description |
+|----------------|-----------------|----------|----------|-------------|
+| shortName     | true | string   | 	CNY |	USD  KRW   JPY  VND |
+
+* Response parameters:
+
+"BTC":"68191.28"  Indicates that the price of BTC is 68191.28
+```
+data:{
+    "BTC":"68191.28",
+    "ETH":"1453.42",
+    "FBT":"1",
+    "USDT":"6.9905"
+
+}
+```
