@@ -34,8 +34,9 @@ Base currency + pricing currency.For example, ```BTC/USDT```, ```symbol``` is **
 | Punching coins | [/dw/addWithdraw](#post-dwaddwithdraw-add-new-application-for-currency) | POST | Add new application for currency | Y |
 | Punching coins | [/dw/cancelWithdraw](#post-dwcancelwithdraw-withdrawal-of-coins) | POST |	Withdrawal of coins | Y |
 | Punching coins | [/dw/queryWithdrawRecording](#get-dwquerywithdrawrecording-query-user-charge-record) | GET | Query user charge record | N | 
-| User assets    | [/personal/getUserFinanceList](#get-personalgetuserfinancelist-user-asset-query) | GET |	User asset query | N |
-| Currency information | [/coin/enabled](#get-coinenabled-get-a-list-of-currency-information) | GET | Get a list of currency information | N |
+| Basic information | [/personal/getUserFinanceList](#get-personalgetuserfinancelist-user-asset-query) | GET |	User asset query | N |
+| Basic information | [/coin/enabled](#get-coinenabled-get-a-list-of-currency-information) | GET | Get a list of currency information | N |
+| Basic information | [/coin/exchange](#get-coinexchange-get-the-latest-exchange-rate-for-the-currency-you-checked) | GET | Get the latest exchange rate for the currency you checked | N |
 ## Market
 #### GET /market/kline Get the K-line data of the specified transaction pair
 * Request parameters:
@@ -61,6 +62,7 @@ data: [
 |----------------|-----------------|-------|----------------|
 | tradeName | true | string | Transaction pair name |
 | buy       | true | number | Buy one price |
+
 | sell      | true | number | Sell ​​one price |
 | high      | true | number | Highest price |
 | low       | true | number | Lowest price |
