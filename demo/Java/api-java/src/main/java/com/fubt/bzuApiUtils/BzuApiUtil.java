@@ -22,7 +22,7 @@ public class BzuApiUtil {
 
     private final static Logger logger = LoggerFactory.getLogger(BzuApiUtil.class);
 
-    public static final String URL_PREFIX = "http://127.0.0.1:8081";//api基础地址  https://api.fubt.co/v1
+    public static final String URL_PREFIX = "https://api.fubt.co/v1";  
 
     /**
      * 获取json内容(统一加密)
