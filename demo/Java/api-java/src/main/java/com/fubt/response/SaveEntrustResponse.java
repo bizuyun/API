@@ -2,7 +2,7 @@ package com.fubt.response;
 
 /**
  * @Description SaveEntrustResponse
- * @auther:
+ * @auther: wangzh
  * @date:
  */
 public class SaveEntrustResponse extends BaseResponse{

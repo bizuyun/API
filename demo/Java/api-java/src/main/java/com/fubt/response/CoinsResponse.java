@@ -3,7 +3,7 @@ package com.fubt.response;
 import java.util.List;
 
 /**
- * @Description 币种信息response
+ * @Description 币种信息 response
  * @auther: wangzh
  * @date: 20190906
  */

@@ -1,7 +1,6 @@
 package com.fubt.response;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Description TradeResponse
@@ -10,13 +9,13 @@ import java.util.Map;
  */
 public class TradeResponse extends BaseResponse{
 
-    private List<Map<String,Object>> data;
+    private List<TradePo> data;
 
-    public List<Map<String, Object>> getData() {
+    public List<TradePo> getData() {
         return data;
     }
 
-    public void setData(List<Map<String, Object>> data) {
+    public void setData(List<TradePo> data) {
         this.data = data;
     }
 }

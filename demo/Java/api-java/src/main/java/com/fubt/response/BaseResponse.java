@@ -1,7 +1,7 @@
 package com.fubt.response;
 
 /**
- * @Description BaseResponse
+ * @Description base Response
  * @auther: wangzh
  * @date: 20190906
  */

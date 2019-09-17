@@ -1,7 +1,6 @@
 package com.fubt.response;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Description DepthResponse
@@ -10,13 +9,23 @@ import java.util.Map;
  */
 public class DepthResponse extends BaseResponse{
 
-    private Map<String,Object> data;
+    private List<DepthPo> buy;
 
-    public Map<String, Object> getData() {
-        return data;
+    private List<DepthPo> sell;
+
+    public List<DepthPo> getBuy() {
+        return buy;
     }
 
-    public void setData(Map<String, Object> data) {
-        this.data = data;
+    public void setBuy(List<DepthPo> buy) {
+        this.buy = buy;
+    }
+
+    public List<DepthPo> getSell() {
+        return sell;
+    }
+
+    public void setSell(List<DepthPo> sell) {
+        this.sell = sell;
     }
 }

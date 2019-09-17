@@ -1,21 +1,20 @@
 package com.fubt.response;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Description OpenOrderResponse
- * @auther:
+ * @auther: wangzh
  * @date:
  */
 public class OpenOrderResponse extends BaseResponse {
-    private List<Map<String, Object>> data;
+    private List<Order> data;
 
-    public List<Map<String, Object>> getData() {
+    public List<Order> getData() {
         return data;
     }
 
-    public void setData(List<Map<String, Object>> data) {
+    public void setData(List<Order> data) {
         this.data = data;
     }
 }

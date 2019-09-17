@@ -1,6 +1,5 @@
 package com.fubt.response;
 
-import java.math.BigDecimal;
 
 /**
  * @Description 全部交易对的信息
@@ -8,16 +7,42 @@ import java.math.BigDecimal;
  * @date: 20190906
  */
 public class Tickers {
-
+    /**
+     * 交易对名称
+     */
     private String tradeName;
-    private BigDecimal buy;
-    private BigDecimal sell;
-    private BigDecimal high;
-    private BigDecimal low;
-    private BigDecimal last;
-    private BigDecimal open;
-    private BigDecimal chg;
-    private BigDecimal vol24hour;
+    /**
+     *买一价格
+     */
+    private Number buy;
+    /**
+     *卖一价格
+     */
+    private Number sell;
+    /**
+     * 最高价
+     */
+    private Number high;
+    /**
+     * 最低价
+     */
+    private Number low;
+    /**
+     * 最新价
+     */
+    private Number last;
+    /**
+     * 开盘价
+     */
+    private Number open;
+    /**
+     * 涨跌
+     */
+    private Number chg;
+    /**
+     * 24小时成交量
+     */
+    private Number vol24hour;
 
     public String getTradeName() {
         return tradeName;
@@ -27,67 +52,67 @@ public class Tickers {
         this.tradeName = tradeName;
     }
 
-    public BigDecimal getBuy() {
+    public Number getBuy() {
         return buy;
     }
 
-    public void setBuy(BigDecimal buy) {
+    public void setBuy(Number buy) {
         this.buy = buy;
     }
 
-    public BigDecimal getSell() {
+    public Number getSell() {
         return sell;
     }
 
-    public void setSell(BigDecimal sell) {
+    public void setSell(Number sell) {
         this.sell = sell;
     }
 
-    public BigDecimal getHigh() {
+    public Number getHigh() {
         return high;
     }
 
-    public void setHigh(BigDecimal high) {
+    public void setHigh(Number high) {
         this.high = high;
     }
 
-    public BigDecimal getLow() {
+    public Number getLow() {
         return low;
     }
 
-    public void setLow(BigDecimal low) {
+    public void setLow(Number low) {
         this.low = low;
     }
 
-    public BigDecimal getLast() {
+    public Number getLast() {
         return last;
     }
 
-    public void setLast(BigDecimal last) {
+    public void setLast(Number last) {
         this.last = last;
     }
 
-    public BigDecimal getOpen() {
+    public Number getOpen() {
         return open;
     }
 
-    public void setOpen(BigDecimal open) {
+    public void setOpen(Number open) {
         this.open = open;
     }
 
-    public BigDecimal getChg() {
+    public Number getChg() {
         return chg;
     }
 
-    public void setChg(BigDecimal chg) {
+    public void setChg(Number chg) {
         this.chg = chg;
     }
 
-    public BigDecimal getVol24hour() {
+    public Number getVol24hour() {
         return vol24hour;
     }
 
-    public void setVol24hour(BigDecimal vol24hour) {
+    public void setVol24hour(Number vol24hour) {
         this.vol24hour = vol24hour;
     }
 }

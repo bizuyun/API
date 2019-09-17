@@ -2,27 +2,74 @@ package com.fubt.response;
 
 /**
  * @Description WithdrawRecording
- * @auther:
+ * @auther: wangzh
  * @date:
  */
 public class WithdrawRecording {
-
-    private Long id;//充提记录ID
-    private Long userId;//用户ID
-    private Long coinId;//币种ID
-    private String type;//交易类型 RECHARGE:充值 WITHDRAW:提现
-    private String statusW;//状态 WAIT-WITHDRAW:等待提现 LOCK:锁定 WITHDRAW-SUCCESS:提现成功 CANCEL:取消 RECHARGING:确认中 RECHARGE-SUCCESS:充值成功 AUDITED:已审核
-    private String amount;//	数量
-    private String networkFees;//手续费
-    private String withdrawAddress;//提币地址
-    private String rechargeAddress;//充值地址
-    private String source;//来源
-    private String hash;//交易哈希
-    private String successCount;//成功确认数
-    private String confirmationCount;//确认数
-    private String createTime;//创建时间
-    private String updateTime;//最后修改时间
-    private String coinName;//币种名称
+    /**
+     * 充提记录ID
+     */
+    private Long id;
+    /**
+     * 用户ID
+     */
+    private Long userId;
+    /**
+     * 币种ID
+     */
+    private Long coinId;
+    /**
+     * 交易类型 RECHARGE:充值 WITHDRAW:提现
+     */
+    private String type;
+    /**
+     * 状态 WAIT-WITHDRAW:等待提现 LOCK:锁定 WITHDRAW-SUCCESS:提现成功 CANCEL:取消 RECHARGING:确认中 RECHARGE-SUCCESS:充值成功 AUDITED:已审核
+     */
+    private String status;
+    /**
+     * 数量
+     */
+    private String amount;
+    /**
+     * 手续费
+     */
+    private String networkFees;
+    /**
+     * 提币地址
+     */
+    private String withdrawAddress;
+    /**
+     * 充值地址
+     */
+    private String rechargeAddress;
+    /**
+     * 来源
+     */
+    private String source;
+    /**
+     * 交易哈希
+     */
+    private String hash;
+    /**
+     * 成功确认数
+     */
+    private String successCount;
+    /**
+     * 确认数
+     */
+    private String confirmationCount;
+    /**
+     * 创建时间
+     */
+    private String createTime;
+    /**
+     * 最后修改时间
+     */
+    private String updateTime;
+    /**
+     * 币种名称
+     */
+    private String coinName;
 
     public Long getId() {
         return id;
@@ -56,12 +103,12 @@ public class WithdrawRecording {
         this.type = type;
     }
 
-    public String getStatusW() {
-        return statusW;
+    public String getStatus() {
+        return status;
     }
 
-    public void setStatusW(String statusW) {
-        this.statusW = statusW;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getAmount() {

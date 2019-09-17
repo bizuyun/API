@@ -1,8 +1,6 @@
 package com.fubt.response;
 
-import java.math.BigDecimal;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Description Depth
@@ -11,23 +9,23 @@ import java.util.Map;
  */
 public class Depth {
 
-    List<Map<String,Object>> buy;
+    List<DepthPo> buy;
 
-    List<Map<String,Object>> sell;
+    List<DepthPo> sell;
 
-    public List<Map<String, Object>> getBuy() {
+    public List<DepthPo> getBuy() {
         return buy;
     }
 
-    public void setBuy(List<Map<String, Object>> buy) {
+    public void setBuy(List<DepthPo> buy) {
         this.buy = buy;
     }
 
-    public List<Map<String, Object>> getSell() {
+    public List<DepthPo> getSell() {
         return sell;
     }
 
-    public void setSell(List<Map<String, Object>> sell) {
+    public void setSell(List<DepthPo> sell) {
         this.sell = sell;
     }
 }

@@ -3,7 +3,7 @@ package com.fubt.response;
 import java.util.Map;
 
 /**
- * @Description 汇率折算response
+ * @Description 汇率折算 response
  * @auther:
  * @date: 20190906
  */

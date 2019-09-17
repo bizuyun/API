@@ -7,13 +7,13 @@ package com.fubt.response;
  */
 public class DTOResponse extends BaseResponse{
 
-    private Object data;
+    private Tickers tickers;
 
-    public Object getData() {
-        return data;
+    public Tickers getTickers() {
+        return tickers;
     }
 
-    public void setData(Object data) {
-        this.data = data;
+    public void setTickers(Tickers tickers) {
+        this.tickers = tickers;
     }
 }

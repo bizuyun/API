@@ -1,8 +1,6 @@
 package com.fubt.response;
 
 import java.util.List;
-import java.util.Map;
-
 /**
  * @Description UserFinanceResponse
  * @auther: wangzh
@@ -10,13 +8,13 @@ import java.util.Map;
  */
 public class UserFinanceResponse extends BaseResponse {
 
-    private List<Map<String,Object>> data;
+    private List<UserFinance> data;
 
-    public List<Map<String, Object>> getData() {
+    public List<UserFinance> getData() {
         return data;
     }
 
-    public void setData(List<Map<String, Object>> data) {
+    public void setData(List<UserFinance> data) {
         this.data = data;
     }
 }

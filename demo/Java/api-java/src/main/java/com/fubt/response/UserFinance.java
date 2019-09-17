@@ -6,10 +6,22 @@ package com.fubt.response;
  * @date:
  */
 public class UserFinance {
-    private String coinName;//币种名称
-    private String total;//可用余额
-    private String frozen;//冻结余额
-    private String financing;//理财余额
+    /**
+     * 币种名称
+     */
+    private String coinName;
+    /**
+     * 可用余额
+     */
+    private String total;
+    /**
+     * 冻结余额
+     */
+    private String frozen;
+    /**
+     * 理财余额
+     */
+    private String financing;
 
     public String getCoinName() {
         return coinName;

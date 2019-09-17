@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -81,8 +82,14 @@ public class FubtApi {
         String param = "accessKey=" + ConstantKey.ACCESS_KEY;
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
-        List<TradeInfo> list = (List) maps.get("data");
-        tradeInfoResponse.setData(list);
+        List<Map<String, Object>> list = (List<Map<String, Object>>) maps.get("data");
+        List<TradeInfo> tradeInfoList = new ArrayList<>();
+        if (list != null && !list.isEmpty()) {
+            for (Map<String, Object> map : list) {
+                tradeInfoList.add((TradeInfo) MapToObject.map2Object(map, TradeInfo.class));
+            }
+        }
+        tradeInfoResponse.setData(tradeInfoList);
         if (maps.size() != Constant.NUM) {
             tradeInfoResponse.setStatus(maps.get("status").toString());
             tradeInfoResponse.setMessage(null);
@@ -104,7 +111,13 @@ public class FubtApi {
         String param = "accessKey=" + ConstantKey.ACCESS_KEY;
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
-        List<Tickers> list = (List) maps.get("data");
+        List<Map<String, Object>> listMap = (List<Map<String, Object>>) maps.get("data");
+        List<Tickers> list = new ArrayList<>();
+        if (listMap != null && !listMap.isEmpty()) {
+            for (Map<String, Object> map : listMap) {
+                list.add((Tickers) MapToObject.map2Object(map, Tickers.class));
+            }
+        }
         tickersResponse.setData(list);
         if (maps.size() != Constant.NUM) {
             tickersResponse.setStatus(maps.get("status").toString());
@@ -127,8 +140,12 @@ public class FubtApi {
         String param = "symbol=" + symbol + "&accessKey=" + ConstantKey.ACCESS_KEY;
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
-        Map tickers = (Map) maps.get("data");
-        dtoResponse.setData(tickers);
+        Map map = (Map) maps.get("data");
+        Tickers tickers = new Tickers();
+        if (map != null) {
+            tickers = (Tickers) MapToObject.map2Object(map, Tickers.class);
+        }
+        dtoResponse.setTickers(tickers);
         if (maps.size() != Constant.NUM) {
             dtoResponse.setMessage(null);
             dtoResponse.setStatus(maps.get("status").toString());
@@ -152,7 +169,22 @@ public class FubtApi {
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> depths = (Map<String, Object>) maps.get("data");
-        depthResponse.setData(depths);
+        List<Map<String, Object>> buyMap = (List<Map<String, Object>>) depths.get("buy");
+        List<Map<String, Object>> sellMap = (List<Map<String, Object>>) depths.get("sell");
+        List<DepthPo> buyList = new ArrayList<>();
+        List<DepthPo> sellList = new ArrayList<>();
+        if (buyMap != null && !buyMap.isEmpty()) {
+            for (Map<String, Object> map : buyMap) {
+                buyList.add((DepthPo) MapToObject.map2Object(map, DepthPo.class));
+            }
+        }
+        if (sellMap != null && !sellMap.isEmpty()) {
+            for (Map<String, Object> map : sellMap) {
+                sellList.add((DepthPo) MapToObject.map2Object(map, DepthPo.class));
+            }
+        }
+        depthResponse.setBuy(buyList);
+        depthResponse.setSell(sellList);
         if (maps.size() != Constant.NUM) {
             depthResponse.setStatus(maps.get("status").toString());
             depthResponse.setMessage(null);
@@ -175,7 +207,13 @@ public class FubtApi {
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         List<Map<String, Object>> listData = (List<Map<String, Object>>) maps.get("data");
-        tradeResponse.setData(listData);
+        List<TradePo> list = new ArrayList<>();
+        if (listData != null && !listData.isEmpty()) {
+            for (Map<String, Object> map : listData) {
+                list.add((TradePo) MapToObject.map2Object(map, TradePo.class));
+            }
+        }
+        tradeResponse.setData(list);
         if (maps.size() != Constant.NUM) {
             tradeResponse.setStatus(maps.get("status").toString());
             tradeResponse.setMessage(null);
@@ -222,7 +260,13 @@ public class FubtApi {
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         List<Map<String, Object>> listData = (List<Map<String, Object>>) maps.get("data");
-        userFinanceResponse.setData(listData);
+        List<UserFinance> list = new ArrayList<>();
+        if (listData != null && !listData.isEmpty()) {
+            for (Map<String, Object> map : listData) {
+                list.add((UserFinance) MapToObject.map2Object(map, UserFinance.class));
+            }
+        }
+        userFinanceResponse.setData(list);
         if (maps.size() != Constant.NUM) {
             userFinanceResponse.setStatus(
                     maps.get("status").toString());
@@ -246,7 +290,7 @@ public class FubtApi {
         jsonObject.put("count", entrustRequest.getCount());
         jsonObject.put("matchType", entrustRequest.getMatchType());
         jsonObject.put("payPwd", entrustRequest.getPayPwd());
-        if(null != entrustRequest.getPrice() && !"".equals(entrustRequest.getPrice())){
+        if (null != entrustRequest.getPrice() && !"".equals(entrustRequest.getPrice())) {
             jsonObject.put("price", entrustRequest.getPrice());
         }
         jsonObject.put("symbol", entrustRequest.getSymbol());
@@ -366,8 +410,14 @@ public class FubtApi {
         String returnJson = BzuApiUtil.sendGet(method, stringBuffer.toString());
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         List<Map<String, Object>> mapList = (List<Map<String, Object>>) maps.get("data");
+        List<Order> list = new ArrayList<>();
+        if (mapList != null && !mapList.isEmpty()) {
+            for (Map<String, Object> map : mapList) {
+                list.add((Order) MapToObject.map2Object(map, Order.class));
+            }
+        }
         if (maps.size() != Constant.NUM) {
-            orderResponse.setData(mapList);
+            orderResponse.setData(list);
             orderResponse.setMessage(null);
             orderResponse.setStatus(maps.get("status").toString());
         } else {
@@ -412,9 +462,15 @@ public class FubtApi {
         String returnJson = BzuApiUtil.sendGet(method, stringBuffer.toString());
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> mapList = (Map<String, Object>) maps.get("data");
-        List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
+        List<Entrust> list = new ArrayList<>();
         if (maps.size() != Constant.NUM) {
-            myEntrustResponse.setData(dataList);
+            List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
+            if (dataList != null && !dataList.isEmpty()) {
+                for (Map<String, Object> map : dataList) {
+                    list.add((Entrust) MapToObject.map2Object(map, Entrust.class));
+                }
+            }
+            myEntrustResponse.setData(list);
             myEntrustResponse.setPageNum(Integer.valueOf(mapList.get("pageNum").toString()));
             myEntrustResponse.setPages(Integer.valueOf(mapList.get("pages").toString()));
             myEntrustResponse.setPageSize(Integer.valueOf(mapList.get("pageSize").toString()));
@@ -466,9 +522,15 @@ public class FubtApi {
         String returnJson = BzuApiUtil.sendGet(method, stringBuffer.toString());
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> mapList = (Map<String, Object>) maps.get("data");
-        List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
+        List<Entrust> list = new ArrayList<>();
         if (maps.size() != Constant.NUM) {
-            myEntrustResponse.setData(dataList);
+            List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
+            if (dataList != null && !dataList.isEmpty()) {
+                for (Map<String, Object> map : dataList) {
+                    list.add((Entrust) MapToObject.map2Object(map, Entrust.class));
+                }
+            }
+            myEntrustResponse.setData(list);
             myEntrustResponse.setPageNum(Integer.valueOf(mapList.get("pageNum").toString()));
             myEntrustResponse.setPages(Integer.valueOf(mapList.get("pages").toString()));
             myEntrustResponse.setPageSize(Integer.valueOf(mapList.get("pageSize").toString()));
@@ -518,8 +580,14 @@ public class FubtApi {
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> mapList = (Map<String, Object>) maps.get("data");
         List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
+        List<EntrustOrder> list = new ArrayList<>();
         if (maps.size() != Constant.NUM) {
-            myEntrustOrderResponse.setData(dataList);
+            if (dataList != null && !dataList.isEmpty()) {
+                for (Map<String, Object> map : dataList) {
+                    list.add((EntrustOrder) MapToObject.map2Object(map, EntrustOrder.class));
+                }
+            }
+            myEntrustOrderResponse.setData(list);
             myEntrustOrderResponse.setPageNum(Integer.valueOf(mapList.get("pageNum").toString()));
             myEntrustOrderResponse.setPages(Integer.valueOf(mapList.get("pages").toString()));
             myEntrustOrderResponse.setPageSize(Integer.valueOf(mapList.get("pageSize").toString()));
@@ -577,7 +645,7 @@ public class FubtApi {
     public WithdrawRecordingResponse queryWithdrawRecording(WithdrawRecordingRequest request) {
         WithdrawRecordingResponse response = new WithdrawRecordingResponse();
         StringBuffer stringBuffer = new StringBuffer();
-        String method = "/order/queryMyEntrustOrder";
+        String method = "/dw/queryWithdrawRecording";
         stringBuffer.append("accessKey=" + ConstantKey.ACCESS_KEY.trim());
         if (request.getType() != null && !"".equals(request.getType())) {
             stringBuffer.append("&type=" + request.getType());
@@ -600,9 +668,16 @@ public class FubtApi {
         String returnJson = BzuApiUtil.sendGet(method, stringBuffer.toString());
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> mapList = (Map<String, Object>) maps.get("data");
-        List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
+
+        List<WithdrawRecording> list = new ArrayList<>();
         if (maps.size() != Constant.NUM) {
-            response.setData(dataList);
+            List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
+            if (dataList != null && !dataList.isEmpty()) {
+                for (Map<String, Object> map : dataList) {
+                    list.add((WithdrawRecording) MapToObject.map2Object(map,WithdrawRecording.class));
+                }
+            }
+            response.setData(list);
             response.setPageNum(Integer.valueOf(mapList.get("pageNum").toString()));
             response.setPages(Integer.valueOf(mapList.get("pages").toString()));
             response.setPageSize(Integer.valueOf(mapList.get("pageSize").toString()));
