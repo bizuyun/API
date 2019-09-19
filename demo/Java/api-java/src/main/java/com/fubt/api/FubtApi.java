@@ -674,7 +674,7 @@ public class FubtApi {
             List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
             if (dataList != null && !dataList.isEmpty()) {
                 for (Map<String, Object> map : dataList) {
-                    list.add((WithdrawRecording) MapToObject.map2Object(map,WithdrawRecording.class));
+                    list.add((WithdrawRecording) MapToObject.map2Object(map, WithdrawRecording.class));
                 }
             }
             response.setData(list);
@@ -687,6 +687,36 @@ public class FubtApi {
         } else {
             response.setMessage(maps.get("meta").toString());
         }
+        return response;
+    }
+
+    /**
+     * 公告列表 22
+     * @param request
+     * @return 20190919
+     */
+    public BulletinResponse queryBulletin(BulletinRequest request) {
+        BulletinResponse response = new BulletinResponse();
+        String method = "/cms/bulletin";
+        String param = "accessKey=" + ConstantKey.ACCESS_KEY + "&language=" + request.getLanguage() +
+                "&pageNum=" + request.getPageNum() + "&pageSize=" + request.getPageSize();
+        String returnJson = BzuApiUtil.sendGet(method, param);
+        Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
+        Map<String, Object> mapList = (Map<String, Object>) maps.get("data");
+        Map<String, Object> meta = (Map) maps.get("meta");
+        response.setMessage(meta.toString());
+        response.setPageNum((Integer) mapList.get("pageNum"));
+        response.setPageSize((Integer) mapList.get("pageSize"));
+        response.setPages((Integer) mapList.get("pages"));
+        response.setTotal((Integer) mapList.get("total"));
+        List<Map<String, Object>> listData = (List) mapList.get("list");
+        List<BulletinPo> bulletinPoData = new ArrayList<>();
+        if (listData != null && listData.size() > 0) {
+            for (Map<String, Object> map : listData) {
+                bulletinPoData.add((BulletinPo) MapToObject.map2Object(map, BulletinPo.class));
+            }
+        }
+        response.setData(bulletinPoData);
         return response;
     }
 
