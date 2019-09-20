@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,9 +33,8 @@ public class FubtApi {
      */
     public CoinsResponse getCoins() {
         CoinsResponse coinsResponse = new CoinsResponse();
-
         String method = "/coin/enabled";
-        String param = "accessKey=" + ConstantKey.ACCESS_KEY;
+        String param = "accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> map = JSON.parseObject(returnJson, Map.class);
         List<String> dataList = (List) map.get("data");
@@ -57,7 +57,7 @@ public class FubtApi {
     public ExchangeResponse queryExchange(String shortName) {
         ExchangeResponse exchangeResponse = new ExchangeResponse();
         String method = "/coin/exchange";
-        String param = "shortName=" + shortName + "&accessKey=" + ConstantKey.ACCESS_KEY;
+        String param = "shortName=" + shortName + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> dataList = (Map) maps.get("data");
@@ -79,7 +79,7 @@ public class FubtApi {
     public TradeInfoResponse queryTradeInfo() {
         TradeInfoResponse tradeInfoResponse = new TradeInfoResponse();
         String method = "/market/tradeInfo";
-        String param = "accessKey=" + ConstantKey.ACCESS_KEY;
+        String param = "accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         List<Map<String, Object>> list = (List<Map<String, Object>>) maps.get("data");
@@ -108,7 +108,7 @@ public class FubtApi {
         TickersResponse tickersResponse = new TickersResponse();
 
         String method = "/market/tickers";
-        String param = "accessKey=" + ConstantKey.ACCESS_KEY;
+        String param = "accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         List<Map<String, Object>> listMap = (List<Map<String, Object>>) maps.get("data");
@@ -137,7 +137,7 @@ public class FubtApi {
     public DTOResponse queryTicker(String symbol) {
         DTOResponse dtoResponse = new DTOResponse();
         String method = "/market/ticker";
-        String param = "symbol=" + symbol + "&accessKey=" + ConstantKey.ACCESS_KEY;
+        String param = "symbol=" + symbol + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map map = (Map) maps.get("data");
@@ -165,7 +165,7 @@ public class FubtApi {
     public DepthResponse queryDepth(String symbol, String step) {
         DepthResponse depthResponse = new DepthResponse();
         String method = "/market/depth";
-        String param = "symbol=" + symbol + "&step=" + step + "&accessKey=" + ConstantKey.ACCESS_KEY;
+        String param = "symbol=" + symbol + "&step=" + step + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> depths = (Map<String, Object>) maps.get("data");
@@ -203,7 +203,7 @@ public class FubtApi {
     public TradeResponse queryTradeBySymbol(String symbol) {
         TradeResponse tradeResponse = new TradeResponse();
         String method = "/market/trade";
-        String param = "symbol=" + symbol + "&accessKey=" + ConstantKey.ACCESS_KEY;
+        String param = "symbol=" + symbol + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         List<Map<String, Object>> listData = (List<Map<String, Object>>) maps.get("data");
@@ -233,7 +233,7 @@ public class FubtApi {
         KlineResponse klineResponse = new KlineResponse();
         String method = "/market/kline";
         String param = "symbol=" + klineRequest.getSymbol() + "&klineType=" + klineRequest.getKlineType() + "&klineStep=" + klineRequest.getKlineStep()
-                + "&accessKey=" + ConstantKey.ACCESS_KEY;
+                + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         List<List<BigDecimal>> listData = (List<List<BigDecimal>>) maps.get("data");
@@ -256,7 +256,7 @@ public class FubtApi {
     public UserFinanceResponse queryUserFinanceList(String selectType) {
         UserFinanceResponse userFinanceResponse = new UserFinanceResponse();
         String method = "/personal/getUserFinanceList";
-        String param = "selectType=" + selectType + "&accessKey=" + ConstantKey.ACCESS_KEY;
+        String param = "selectType=" + selectType + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         List<Map<String, Object>> listData = (List<Map<String, Object>>) maps.get("data");
@@ -374,7 +374,7 @@ public class FubtApi {
     public OrderResponse queryOrderById(Number orderId) {
         OrderResponse orderResponse = new OrderResponse();
         String method = "/order/queryOrderById";
-        String param = "orderId=" + orderId + "&accessKey=" + ConstantKey.ACCESS_KEY.trim();
+        String param = "orderId=" + orderId + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> map = (Map) maps.get("data");
@@ -400,7 +400,7 @@ public class FubtApi {
         OpenOrderResponse orderResponse = new OpenOrderResponse();
         String method = "/order/openOrders";
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append("accessKey=" + ConstantKey.ACCESS_KEY.trim());
+        stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
         if (null != symbol && !"".equals(symbol)) {
             stringBuffer.append("&symbol=" + symbol);
         }
@@ -436,7 +436,7 @@ public class FubtApi {
         MyEntrustResponse myEntrustResponse = new MyEntrustResponse();
         StringBuffer stringBuffer = new StringBuffer();
         String method = "/order/queryMyEntrust";
-        stringBuffer.append("accessKey=" + ConstantKey.ACCESS_KEY.trim());
+        stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
         if (myEntrustRequest.getType() != null && !"".equals(myEntrustRequest.getType())) {
             stringBuffer.append("&type=" + myEntrustRequest.getType());
         }
@@ -493,7 +493,7 @@ public class FubtApi {
         MyEntrustResponse myEntrustResponse = new MyEntrustResponse();
         StringBuffer stringBuffer = new StringBuffer();
         String method = "/order/queryMyHisEntrust";
-        stringBuffer.append("accessKey=" + ConstantKey.ACCESS_KEY.trim());
+        stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
         if (myHisEntrustRequest.getType() != null && !"".equals(myHisEntrustRequest.getType())) {
             stringBuffer.append("&type=" + myHisEntrustRequest.getType());
         }
@@ -553,7 +553,7 @@ public class FubtApi {
         MyEntrustOrderResponse myEntrustOrderResponse = new MyEntrustOrderResponse();
         StringBuffer stringBuffer = new StringBuffer();
         String method = "/order/queryMyEntrustOrder";
-        stringBuffer.append("accessKey=" + ConstantKey.ACCESS_KEY.trim());
+        stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
         if (myEntrustRequest.getType() != null && !"".equals(myEntrustRequest.getType())) {
             stringBuffer.append("&type=" + myEntrustRequest.getType());
         }
@@ -646,7 +646,7 @@ public class FubtApi {
         WithdrawRecordingResponse response = new WithdrawRecordingResponse();
         StringBuffer stringBuffer = new StringBuffer();
         String method = "/dw/queryWithdrawRecording";
-        stringBuffer.append("accessKey=" + ConstantKey.ACCESS_KEY.trim());
+        stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
         if (request.getType() != null && !"".equals(request.getType())) {
             stringBuffer.append("&type=" + request.getType());
         }
@@ -693,12 +693,12 @@ public class FubtApi {
     /**
      * 公告列表 22
      * @param request
-     * @return 20190919
+     * @return
      */
     public BulletinResponse queryBulletin(BulletinRequest request) {
         BulletinResponse response = new BulletinResponse();
         String method = "/cms/bulletin";
-        String param = "accessKey=" + ConstantKey.ACCESS_KEY + "&language=" + request.getLanguage() +
+        String param = "accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY) + "&language=" + request.getLanguage() +
                 "&pageNum=" + request.getPageNum() + "&pageSize=" + request.getPageSize();
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);

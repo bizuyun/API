@@ -1,13 +1,8 @@
 package com.fubt.bzuApiUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.util.List;
-import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import org.slf4j.Logger;
@@ -22,7 +17,7 @@ public class BzuApiUtil {
 
     private final static Logger logger = LoggerFactory.getLogger(BzuApiUtil.class);
 
-    public static final String URL_PREFIX = "https://api.fubt.co/v1";  
+    public static final String URL_PREFIX = "https://api.fubt.co/v1";//api基础地址
 
     /**
      * 获取json内容(统一加密)
@@ -32,11 +27,11 @@ public class BzuApiUtil {
      * @param secretKey
      * @return
      */
-    public static String getJsonPost(JSONObject jsonObject, String method,String secretKey) {
-        String url = URL_PREFIX+method.trim();
+    public static String getJsonPost(JSONObject jsonObject, String method, String secretKey) {
+        String url = URL_PREFIX + method.trim();
         String signString = Sign.jsonToString(jsonObject.toJSONString());
         String signature = Sign.sha256_HMAC(signString, secretKey);
-        jsonObject.put("signature",signature);
+        jsonObject.put("signature", signature);
         String json = "";
         try {
             json = sendPost(url, jsonObject);
@@ -55,12 +50,13 @@ public class BzuApiUtil {
      */
     public static String sendPost(String url, JSONObject param) {
         OutputStreamWriter out = null;
-        BufferedReader in = null;
+        BufferedReader br = null;
         String result = "";
+        InputStream is = null;
         try {
             URL realUrl = new URL(url);
             // 打开和URL之间的连接
-            URLConnection conn = realUrl.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
             // 设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");
@@ -76,26 +72,31 @@ public class BzuApiUtil {
             out.write(param.toString());
             // flush输出流的缓冲
             out.flush();
+
             // 定义BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(new InputStreamReader(
-                    conn.getInputStream(),"UTF-8"));
+            if (conn.getResponseCode() == 200) {
+                is = conn.getInputStream();
+            } else if (conn.getResponseCode() == 401) {
+                is = conn.getErrorStream();
+            }
+            br = new BufferedReader(new InputStreamReader(
+                    is, "UTF-8"));
             String line;
-            while ((line = in.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 result += line;
             }
         } catch (Exception e) {
-            logger.info("发送 POST 请求出现异常！"+e);
+            logger.info("发送 POST 请求出现异常！" + e);
             e.printStackTrace();
-        } finally{
-            try{
-                if(out!=null){
+        } finally {
+            try {
+                if (null != out) {
                     out.close();
                 }
-                if(in!=null){
-                    in.close();
+                if (null != br) {
+                    br.close();
                 }
-            }
-            catch(IOException ex){
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }
@@ -105,18 +106,19 @@ public class BzuApiUtil {
     /**
      * 发送GET方法的请求
      *
-     * @param method   发送请求的方法
-     * @param param 请求参数
+     * @param method 发送请求的方法
+     * @param param  请求参数
      * @return result 响应结果
      */
     public static String sendGet(String method, String param) {
         String result = "";
-        BufferedReader in = null;
+        BufferedReader br = null;
+        InputStream is = null;
         try {
-            String urlNameString = URL_PREFIX+method.trim()+"?"+param;
+            String urlNameString = URL_PREFIX + method.trim() + "?" + param;
             URL realUrl = new URL(urlNameString);
             // 打开和URL之间的连接
-            URLConnection connection = realUrl.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) realUrl.openConnection();
             // 设置通用的请求属性
             connection.setRequestProperty("accept", "*/*");
             connection.setRequestProperty("connection", "Keep-Alive");
@@ -124,12 +126,16 @@ public class BzuApiUtil {
                     "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
             // 建立实际的连接
             connection.connect();
-            // 获取所有响应头字段
-            Map<String, List<String>> map = connection.getHeaderFields();
+//          Map<String, List<String>> map = connection.getHeaderFields();// 获取所有响应头字段
             // 定义 BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            if (connection.getResponseCode() == 200) {
+                is = connection.getInputStream();
+            } else if (connection.getResponseCode() == 401) {
+                is = connection.getErrorStream();
+            }
+            br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             String line;
-            while ((line = in.readLine()) != null) {
+            while ((line = br.readLine()) != null) {
                 result += line;
             }
         } catch (Exception e) {
@@ -137,13 +143,23 @@ public class BzuApiUtil {
             e.printStackTrace();
         } finally {
             try {
-                if (in != null) {
-                    in.close();
+                if (null != br) {
+                    br.close();
                 }
             } catch (Exception e2) {
                 e2.printStackTrace();
             }
+
+            if (null != is) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
         return result;
     }
+
 }
