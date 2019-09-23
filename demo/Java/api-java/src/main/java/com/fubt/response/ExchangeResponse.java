@@ -7,7 +7,7 @@ import java.util.Map;
  * @auther:
  * @date: 20190906
  */
-public class ExchangeResponse extends BaseResponse{
+public class ExchangeResponse {
 
     private Map<String,Object> data;//每个币种对应的法币 key为币种  value为法币值
 

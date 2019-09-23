@@ -7,7 +7,7 @@ import java.util.List;
  * @auther: wangzh
  * @date: 20190906
  */
-public class TickersResponse extends BaseResponse {
+public class TickersResponse {
 
     private List<Tickers> data;
 

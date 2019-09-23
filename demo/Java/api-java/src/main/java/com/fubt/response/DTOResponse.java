@@ -5,7 +5,7 @@ package com.fubt.response;
  * @auther: wangzh
  * @date: 20190906
  */
-public class DTOResponse extends BaseResponse{
+public class DTOResponse {
 
     private Tickers tickers;
 

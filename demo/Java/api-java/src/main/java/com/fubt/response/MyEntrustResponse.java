@@ -7,7 +7,7 @@ import java.util.List;
  * @auther: wangzh
  * @date:
  */
-public class MyEntrustResponse extends BaseEntity {
+public class MyEntrustResponse {
 
     private List<Entrust> data;
 

@@ -5,7 +5,7 @@ package com.fubt.response;
  * @auther: wangzh
  * @date:
  */
-public class SaveEntrustResponse extends BaseResponse{
+public class SaveEntrustResponse {
     private Object data;
 
     public Object getData() {

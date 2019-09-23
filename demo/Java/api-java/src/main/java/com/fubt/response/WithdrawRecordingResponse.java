@@ -3,11 +3,11 @@ package com.fubt.response;
 import java.util.List;
 
 /**
- * @Description  冲、提 Response
+ * @Description 冲、提 Response
  * @auther: wangzh
  * @date: 20190910
  */
-public class WithdrawRecordingResponse extends BaseEntity{
+public class WithdrawRecordingResponse {
 
 
     private List<WithdrawRecording> data;

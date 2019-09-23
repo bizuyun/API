@@ -7,7 +7,7 @@ import java.util.List;
  * @auther: wangzh
  * @date: 20190906
  */
-public class TradeInfoResponse extends BaseResponse{
+public class TradeInfoResponse {
 
     private List<TradeInfo> data; //交易对信息
 

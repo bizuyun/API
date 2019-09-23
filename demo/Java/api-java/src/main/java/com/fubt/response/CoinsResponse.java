@@ -7,7 +7,7 @@ import java.util.List;
  * @auther: wangzh
  * @date: 20190906
  */
-public class CoinsResponse extends BaseResponse{
+public class CoinsResponse {
 
     private List<String> data;//币种小写字符串 list
 

@@ -76,7 +76,7 @@ public class BzuApiUtil {
             // 定义BufferedReader输入流来读取URL的响应
             if (conn.getResponseCode() == 200) {
                 is = conn.getInputStream();
-            } else if (conn.getResponseCode() == 401) {
+            } else {
                 is = conn.getErrorStream();
             }
             br = new BufferedReader(new InputStreamReader(

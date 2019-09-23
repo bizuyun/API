@@ -5,7 +5,7 @@ package com.fubt.response;
  * @auther:
  * @date:
  */
-public class OrderResponse extends BaseResponse {
+public class OrderResponse {
     private Order data;
 
     public Order getData() {

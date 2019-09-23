@@ -13,9 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description * @Description  fubt API
@@ -31,21 +29,18 @@ public class FubtApi {
      *
      * @return
      */
-    public CoinsResponse getCoins() {
-        CoinsResponse coinsResponse = new CoinsResponse();
+    public ResponseBaseBean<CoinsResponse> getCoins() {
         String method = "/coin/enabled";
         String param = "accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> map = JSON.parseObject(returnJson, Map.class);
         List<String> dataList = (List) map.get("data");
-        coinsResponse.setData(dataList);
         if (map.size() != Constant.NUM) {
-            coinsResponse.setMessage(null);
-            coinsResponse.setStatus(map.get("status").toString());
+            return ResponseBaseBean.success(dataList, null, map.get("status").toString());
         } else {
-            coinsResponse.setMessage(map.get("meta").toString());
+            return ResponseBaseBean.success(dataList, map.get("meta").toString(), null);
         }
-        return coinsResponse;
+
     }
 
     /**
@@ -54,21 +49,17 @@ public class FubtApi {
      * @param shortName 币种简写 比如：CNY
      * @return Map  key为币种  value为所查法币对应的值
      */
-    public ExchangeResponse queryExchange(String shortName) {
-        ExchangeResponse exchangeResponse = new ExchangeResponse();
+    public ResponseBaseBean<ExchangeResponse> queryExchange(String shortName) {
         String method = "/coin/exchange";
         String param = "shortName=" + shortName + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> dataList = (Map) maps.get("data");
-        exchangeResponse.setData(dataList);
         if (maps.size() != Constant.NUM) {
-            exchangeResponse.setMessage(null);
-            exchangeResponse.setStatus(maps.get("status").toString());
+            return ResponseBaseBean.success(dataList, null, maps.get("status").toString());
         } else {
-            exchangeResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseBean.success(dataList, maps.get("meta").toString(), null);
         }
-        return exchangeResponse;
     }
 
     /**
@@ -76,8 +67,7 @@ public class FubtApi {
      *
      * @return
      */
-    public TradeInfoResponse queryTradeInfo() {
-        TradeInfoResponse tradeInfoResponse = new TradeInfoResponse();
+    public ResponseBaseBean<TradeInfoResponse> queryTradeInfo() {
         String method = "/market/tradeInfo";
         String param = "accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
@@ -89,14 +79,11 @@ public class FubtApi {
                 tradeInfoList.add((TradeInfo) MapToObject.map2Object(map, TradeInfo.class));
             }
         }
-        tradeInfoResponse.setData(tradeInfoList);
         if (maps.size() != Constant.NUM) {
-            tradeInfoResponse.setStatus(maps.get("status").toString());
-            tradeInfoResponse.setMessage(null);
+            return ResponseBaseBean.success(tradeInfoList, null, maps.get("status").toString());
         } else {
-            tradeInfoResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseBean.info(tradeInfoList, maps.get("meta").toString());
         }
-        return tradeInfoResponse;
     }
 
     /**
@@ -104,9 +91,7 @@ public class FubtApi {
      *
      * @return
      */
-    public TickersResponse queryTickers() {
-        TickersResponse tickersResponse = new TickersResponse();
-
+    public ResponseBaseBean<TickersResponse> queryTickers() {
         String method = "/market/tickers";
         String param = "accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
@@ -118,14 +103,11 @@ public class FubtApi {
                 list.add((Tickers) MapToObject.map2Object(map, Tickers.class));
             }
         }
-        tickersResponse.setData(list);
         if (maps.size() != Constant.NUM) {
-            tickersResponse.setStatus(maps.get("status").toString());
-            tickersResponse.setMessage(null);
+            return ResponseBaseBean.success(list, null, maps.get("status").toString());
         } else {
-            tickersResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseBean.info(list, maps.get("meta").toString());
         }
-        return tickersResponse;
     }
 
     /**
@@ -134,8 +116,7 @@ public class FubtApi {
      * @param symbol
      * @return
      */
-    public DTOResponse queryTicker(String symbol) {
-        DTOResponse dtoResponse = new DTOResponse();
+    public ResponseBaseBean<DTOResponse> queryTicker(String symbol) {
         String method = "/market/ticker";
         String param = "symbol=" + symbol + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
@@ -145,14 +126,11 @@ public class FubtApi {
         if (map != null) {
             tickers = (Tickers) MapToObject.map2Object(map, Tickers.class);
         }
-        dtoResponse.setTickers(tickers);
         if (maps.size() != Constant.NUM) {
-            dtoResponse.setMessage(null);
-            dtoResponse.setStatus(maps.get("status").toString());
+            return ResponseBaseBean.success(tickers, null, maps.get("status").toString());
         } else {
-            dtoResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseBean.info(tickers, maps.get("meta").toString());
         }
-        return dtoResponse;
     }
 
     /**
@@ -200,8 +178,7 @@ public class FubtApi {
      * @param symbol
      * @return price成交价格, amount成交数量，direction成交方向(BUY,SELL)，time时间戳
      */
-    public TradeResponse queryTradeBySymbol(String symbol) {
-        TradeResponse tradeResponse = new TradeResponse();
+    public ResponseBaseBean<TradeResponse> queryTradeBySymbol(String symbol) {
         String method = "/market/trade";
         String param = "symbol=" + symbol + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
@@ -213,14 +190,11 @@ public class FubtApi {
                 list.add((TradePo) MapToObject.map2Object(map, TradePo.class));
             }
         }
-        tradeResponse.setData(list);
         if (maps.size() != Constant.NUM) {
-            tradeResponse.setStatus(maps.get("status").toString());
-            tradeResponse.setMessage(null);
+            return ResponseBaseBean.success(list, null, maps.get("status").toString());
         } else {
-            tradeResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseBean.info(list, maps.get("meta").toString());
         }
-        return tradeResponse;
     }
 
     /**
@@ -229,22 +203,18 @@ public class FubtApi {
      * @param klineRequest
      * @return 最高价, 开盘价, 最低价, 收盘价, 成交量, 时间戳
      */
-    public KlineResponse queryKline(KlineRequest klineRequest) {
-        KlineResponse klineResponse = new KlineResponse();
+    public ResponseBaseBean<KlineResponse> queryKline(KlineRequest klineRequest) {
         String method = "/market/kline";
         String param = "symbol=" + klineRequest.getSymbol() + "&klineType=" + klineRequest.getKlineType() + "&klineStep=" + klineRequest.getKlineStep()
                 + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         List<List<BigDecimal>> listData = (List<List<BigDecimal>>) maps.get("data");
-        klineResponse.setData(listData);
         if (maps.size() != Constant.NUM) {
-            klineResponse.setStatus(maps.get("status").toString());
-            klineResponse.setMessage(null);
+            return ResponseBaseBean.success(listData, null, maps.get("status").toString());
         } else {
-            klineResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseBean.info(listData, maps.get("meta").toString());
         }
-        return klineResponse;
     }
 
     /**
@@ -253,8 +223,7 @@ public class FubtApi {
      * @param selectType all：查询用户所有资产 noall：查询用户非0资产
      * @return coinName币种名称    total可用余额   frozen冻结余额   financing理财余额
      */
-    public UserFinanceResponse queryUserFinanceList(String selectType) {
-        UserFinanceResponse userFinanceResponse = new UserFinanceResponse();
+    public ResponseBaseBean<UserFinanceResponse> queryUserFinanceList(String selectType) {
         String method = "/personal/getUserFinanceList";
         String param = "selectType=" + selectType + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
@@ -266,15 +235,11 @@ public class FubtApi {
                 list.add((UserFinance) MapToObject.map2Object(map, UserFinance.class));
             }
         }
-        userFinanceResponse.setData(list);
         if (maps.size() != Constant.NUM) {
-            userFinanceResponse.setStatus(
-                    maps.get("status").toString());
-            userFinanceResponse.setMessage(null);
+            return ResponseBaseBean.success(list, null, maps.get("status").toString());
         } else {
-            userFinanceResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseBean.info(list, maps.get("meta").toString());
         }
-        return userFinanceResponse;
     }
 
     /**
@@ -283,8 +248,7 @@ public class FubtApi {
      * @param entrustRequest
      * @return data订单号
      */
-    public SaveEntrustResponse saveEntrust(EntrustRequest entrustRequest) {
-        SaveEntrustResponse saveEntrustResponse = new SaveEntrustResponse();
+    public ResponseBaseBean<SaveEntrustResponse> saveEntrust(EntrustRequest entrustRequest) {
         JSONObject jsonObject = new JSONObject();
         String method = "/order/saveEntrust";
         jsonObject.put("count", entrustRequest.getCount());
@@ -301,15 +265,13 @@ public class FubtApi {
         String json = BzuApiUtil.getJsonPost(jsonObject, method, ConstantKey.SECRET_KEY);
         if (!"".equals(json) && null != json) {
             Map<String, Object> maps = JSON.parseObject(json, Map.class);
-            saveEntrustResponse.setData(maps.get("data"));
             if (maps.size() != Constant.NUM) {
-                saveEntrustResponse.setStatus(maps.get("status").toString());
-                saveEntrustResponse.setMessage(null);
+                return ResponseBaseBean.success(maps.get("data"), null, maps.get("status").toString());
             } else {
-                saveEntrustResponse.setMessage(maps.get("meta").toString());
+                return ResponseBaseBean.info(maps.get("data"), maps.get("meta").toString());
             }
         }
-        return saveEntrustResponse;
+        return ResponseBaseBean.error(json);
     }
 
     /**
@@ -371,22 +333,22 @@ public class FubtApi {
      * @param orderId
      * @return
      */
-    public OrderResponse queryOrderById(Number orderId) {
-        OrderResponse orderResponse = new OrderResponse();
+    public ResponseBaseBean<OrderResponse> queryOrderById(Number orderId) {
         String method = "/order/queryOrderById";
         String param = "orderId=" + orderId + "&accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY);
         String returnJson = BzuApiUtil.sendGet(method, param);
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> map = (Map) maps.get("data");
-        if (maps.size() != Constant.NUM && map != null && !"".equals(map)) {
-            Order obj = (Order) MapToObject.map2Object(map, Order.class);
-            orderResponse.setData(obj);
-            orderResponse.setStatus(maps.get("status").toString());
-            orderResponse.setMessage(null);
+        if (maps.size() != Constant.NUM) {
+            if (map != null && !"".equals(map)) {
+                Order obj = (Order) MapToObject.map2Object(map, Order.class);
+                return ResponseBaseBean.success(obj, null, maps.get("status").toString());
+            } else {
+                return ResponseBaseBean.error(null, maps.get("status").toString());
+            }
         } else {
-            orderResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseBean.error(maps.get("meta").toString());
         }
-        return orderResponse;
     }
 
     /**
@@ -396,8 +358,7 @@ public class FubtApi {
      * @param symbol 交易对symbol   规则：基础币种+计价币种。如BTC/USDT，symbol 为 btcusdt
      * @return
      */
-    public OpenOrderResponse queryOpenOrders(String symbol, String type) {
-        OpenOrderResponse orderResponse = new OpenOrderResponse();
+    public ResponseBaseBean<OpenOrderResponse> queryOpenOrders(String symbol, String type) {
         String method = "/order/openOrders";
         StringBuffer stringBuffer = new StringBuffer();
         stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
@@ -417,13 +378,10 @@ public class FubtApi {
             }
         }
         if (maps.size() != Constant.NUM) {
-            orderResponse.setData(list);
-            orderResponse.setMessage(null);
-            orderResponse.setStatus(maps.get("status").toString());
+            return ResponseBaseBean.success(list, null, maps.get("status").toString());
         } else {
-            orderResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseBean.error(maps.get("meta").toString());
         }
-        return orderResponse;
     }
 
     /**
@@ -432,8 +390,7 @@ public class FubtApi {
      * @param myEntrustRequest
      * @return
      */
-    public MyEntrustResponse queryMyEntrust(MyEntrustRequest myEntrustRequest) {
-        MyEntrustResponse myEntrustResponse = new MyEntrustResponse();
+    public ResponseBaseSizeBean<MyEntrustResponse> queryMyEntrust(MyEntrustRequest myEntrustRequest) {
         StringBuffer stringBuffer = new StringBuffer();
         String method = "/order/queryMyEntrust";
         stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
@@ -458,29 +415,28 @@ public class FubtApi {
         if (myEntrustRequest.getPageSize() != null && !"".equals(myEntrustRequest.getPageSize())) {
             stringBuffer.append("&pageSize=" + myEntrustRequest.getPageSize());
         }
-
         String returnJson = BzuApiUtil.sendGet(method, stringBuffer.toString());
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> mapList = (Map<String, Object>) maps.get("data");
         List<Entrust> list = new ArrayList<>();
         if (maps.size() != Constant.NUM) {
+            if (Objects.isNull(mapList)) {
+                return ResponseBaseSizeBean.error(null, maps.get("status").toString());
+            }
             List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
             if (dataList != null && !dataList.isEmpty()) {
                 for (Map<String, Object> map : dataList) {
                     list.add((Entrust) MapToObject.map2Object(map, Entrust.class));
                 }
             }
-            myEntrustResponse.setData(list);
-            myEntrustResponse.setPageNum(Integer.valueOf(mapList.get("pageNum").toString()));
-            myEntrustResponse.setPages(Integer.valueOf(mapList.get("pages").toString()));
-            myEntrustResponse.setPageSize(Integer.valueOf(mapList.get("pageSize").toString()));
-            myEntrustResponse.setTotal(Integer.valueOf(mapList.get("total").toString()));
-            myEntrustResponse.setStatus(maps.get("status").toString());
-            myEntrustResponse.setMessage(null);
+            Integer pageNum = Integer.valueOf(mapList.get("pageNum").toString());
+            Integer pages = Integer.valueOf(mapList.get("pages").toString());
+            Integer pageSize = Integer.valueOf(mapList.get("pageSize").toString());
+            Integer total = Integer.valueOf(mapList.get("total").toString());
+            return ResponseBaseSizeBean.success(pageNum, pageSize, total, pages, list, null, maps.get("status").toString());
         } else {
-            myEntrustResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseSizeBean.error(maps.get("meta").toString());
         }
-        return myEntrustResponse;
     }
 
     /**
@@ -489,8 +445,7 @@ public class FubtApi {
      * @param myHisEntrustRequest
      * @return
      */
-    public MyEntrustResponse queryMyHisEntrust(MyHisEntrustRequest myHisEntrustRequest) {
-        MyEntrustResponse myEntrustResponse = new MyEntrustResponse();
+    public ResponseBaseSizeBean<MyEntrustResponse> queryMyHisEntrust(MyHisEntrustRequest myHisEntrustRequest) {
         StringBuffer stringBuffer = new StringBuffer();
         String method = "/order/queryMyHisEntrust";
         stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
@@ -524,23 +479,23 @@ public class FubtApi {
         Map<String, Object> mapList = (Map<String, Object>) maps.get("data");
         List<Entrust> list = new ArrayList<>();
         if (maps.size() != Constant.NUM) {
+            if (Objects.isNull(mapList)) {
+                return ResponseBaseSizeBean.error(null, maps.get("status").toString());
+            }
             List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
             if (dataList != null && !dataList.isEmpty()) {
                 for (Map<String, Object> map : dataList) {
                     list.add((Entrust) MapToObject.map2Object(map, Entrust.class));
                 }
             }
-            myEntrustResponse.setData(list);
-            myEntrustResponse.setPageNum(Integer.valueOf(mapList.get("pageNum").toString()));
-            myEntrustResponse.setPages(Integer.valueOf(mapList.get("pages").toString()));
-            myEntrustResponse.setPageSize(Integer.valueOf(mapList.get("pageSize").toString()));
-            myEntrustResponse.setTotal(Integer.valueOf(mapList.get("total").toString()));
-            myEntrustResponse.setStatus(maps.get("status").toString());
-            myEntrustResponse.setMessage(null);
+            Integer pageNum = Integer.valueOf(mapList.get("pageNum").toString());
+            Integer pages = Integer.valueOf(mapList.get("pages").toString());
+            Integer pageSize = Integer.valueOf(mapList.get("pageSize").toString());
+            Integer total = Integer.valueOf(mapList.get("total").toString());
+            return ResponseBaseSizeBean.success(pageNum, pageSize, total, pages, list, null, maps.get("status").toString());
         } else {
-            myEntrustResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseSizeBean.error(maps.get("meta").toString());
         }
-        return myEntrustResponse;
     }
 
     /**
@@ -549,8 +504,7 @@ public class FubtApi {
      * @param myEntrustRequest
      * @return
      */
-    public MyEntrustOrderResponse queryMyEntrustOrder(MyEntrustRequest myEntrustRequest) {
-        MyEntrustOrderResponse myEntrustOrderResponse = new MyEntrustOrderResponse();
+    public ResponseBaseSizeBean<MyEntrustOrderResponse> queryMyEntrustOrder(MyEntrustRequest myEntrustRequest) {
         StringBuffer stringBuffer = new StringBuffer();
         String method = "/order/queryMyEntrustOrder";
         stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
@@ -575,29 +529,28 @@ public class FubtApi {
         if (myEntrustRequest.getPageSize() != null && !"".equals(myEntrustRequest.getPageSize())) {
             stringBuffer.append("&pageSize=" + myEntrustRequest.getPageSize());
         }
-
         String returnJson = BzuApiUtil.sendGet(method, stringBuffer.toString());
         Map<String, Object> maps = JSON.parseObject(returnJson, Map.class);
         Map<String, Object> mapList = (Map<String, Object>) maps.get("data");
-        List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
         List<EntrustOrder> list = new ArrayList<>();
         if (maps.size() != Constant.NUM) {
+            if (Objects.isNull(mapList)) {
+                return ResponseBaseSizeBean.error(null, maps.get("status").toString());
+            }
+            List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
             if (dataList != null && !dataList.isEmpty()) {
                 for (Map<String, Object> map : dataList) {
                     list.add((EntrustOrder) MapToObject.map2Object(map, EntrustOrder.class));
                 }
             }
-            myEntrustOrderResponse.setData(list);
-            myEntrustOrderResponse.setPageNum(Integer.valueOf(mapList.get("pageNum").toString()));
-            myEntrustOrderResponse.setPages(Integer.valueOf(mapList.get("pages").toString()));
-            myEntrustOrderResponse.setPageSize(Integer.valueOf(mapList.get("pageSize").toString()));
-            myEntrustOrderResponse.setTotal(Integer.valueOf(mapList.get("total").toString()));
-            myEntrustOrderResponse.setStatus(maps.get("status").toString());
-            myEntrustOrderResponse.setMessage(null);
+            Integer pageNum = Integer.valueOf(mapList.get("pageNum").toString());
+            Integer pages = Integer.valueOf(mapList.get("pages").toString());
+            Integer pageSize = Integer.valueOf(mapList.get("pageSize").toString());
+            Integer total = Integer.valueOf(mapList.get("total").toString());
+            return ResponseBaseSizeBean.success(pageNum, pageSize, total, pages, list, null, maps.get("status").toString());
         } else {
-            myEntrustOrderResponse.setMessage(maps.get("meta").toString());
+            return ResponseBaseSizeBean.error(maps.get("meta").toString());
         }
-        return myEntrustOrderResponse;
     }
 
     /**
@@ -642,8 +595,7 @@ public class FubtApi {
      * @param request
      * @return
      */
-    public WithdrawRecordingResponse queryWithdrawRecording(WithdrawRecordingRequest request) {
-        WithdrawRecordingResponse response = new WithdrawRecordingResponse();
+    public ResponseBaseSizeBean<WithdrawRecordingResponse> queryWithdrawRecording(WithdrawRecordingRequest request) {
         StringBuffer stringBuffer = new StringBuffer();
         String method = "/dw/queryWithdrawRecording";
         stringBuffer.append("accessKey=" + URLEncoder.encode(ConstantKey.ACCESS_KEY.trim()));
@@ -671,27 +623,28 @@ public class FubtApi {
 
         List<WithdrawRecording> list = new ArrayList<>();
         if (maps.size() != Constant.NUM) {
+            if (Objects.isNull(mapList)) {
+                return ResponseBaseSizeBean.error(null, maps.get("status").toString());
+            }
             List<Map<String, Object>> dataList = (List<Map<String, Object>>) mapList.get("list");
             if (dataList != null && !dataList.isEmpty()) {
                 for (Map<String, Object> map : dataList) {
                     list.add((WithdrawRecording) MapToObject.map2Object(map, WithdrawRecording.class));
                 }
             }
-            response.setData(list);
-            response.setPageNum(Integer.valueOf(mapList.get("pageNum").toString()));
-            response.setPages(Integer.valueOf(mapList.get("pages").toString()));
-            response.setPageSize(Integer.valueOf(mapList.get("pageSize").toString()));
-            response.setTotal(Integer.valueOf(mapList.get("total").toString()));
-            response.setStatus(maps.get("status").toString());
-            response.setMessage(null);
+            Integer pageNum = Integer.valueOf(mapList.get("pageNum").toString());
+            Integer pages = Integer.valueOf(mapList.get("pages").toString());
+            Integer pageSize = Integer.valueOf(mapList.get("pageSize").toString());
+            Integer total = Integer.valueOf(mapList.get("total").toString());
+            return ResponseBaseSizeBean.success(pageNum, pageSize, total, pages, list, null, maps.get("status").toString());
         } else {
-            response.setMessage(maps.get("meta").toString());
+            return ResponseBaseSizeBean.error(maps.get("meta").toString());
         }
-        return response;
     }
 
     /**
      * 公告列表 22
+     *
      * @param request
      * @return
      */

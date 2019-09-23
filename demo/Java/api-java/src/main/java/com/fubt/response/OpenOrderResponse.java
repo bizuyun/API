@@ -7,7 +7,7 @@ import java.util.List;
  * @auther: wangzh
  * @date:
  */
-public class OpenOrderResponse extends BaseResponse {
+public class OpenOrderResponse {
     private List<Order> data;
 
     public List<Order> getData() {
