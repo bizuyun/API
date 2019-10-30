@@ -9,6 +9,7 @@ public class WithdrawRequest {
 
     private String coinName;
     private String withdrawAddress;
+    private String payCode;
     private String amount;
     private String networkFees;
     private String remark;
@@ -27,6 +28,14 @@ public class WithdrawRequest {
 
     public void setWithdrawAddress(String withdrawAddress) {
         this.withdrawAddress = withdrawAddress;
+    }
+    
+    public String getPayCode() {
+        return payCode;
+    }
+
+    public void setPayCode(String payCode) {
+        this.payCode = payCode;
     }
 
     public String getAmount() {
