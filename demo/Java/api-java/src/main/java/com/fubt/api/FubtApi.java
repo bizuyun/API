@@ -564,6 +564,7 @@ public class FubtApi {
         String method = "/dw/addWithdraw";
         jsonObject.put("coinName", withdrawRequest.getCoinName());
         jsonObject.put("withdrawAddress", withdrawRequest.getWithdrawAddress());
+        jsonObject.put("payCode", withdrawRequest.getPayCode());
         jsonObject.put("amount", withdrawRequest.getAmount());
         jsonObject.put("networkFees", withdrawRequest.getNetworkFees());
         jsonObject.put("remark", withdrawRequest.getRemark());
